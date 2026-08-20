@@ -1,0 +1,65 @@
+{
+	"admin/services/frps-advanced": {
+		"title": "Frp Server",
+		"action": {
+			"type": "firstchild"
+		},
+		"depends": {
+			"acl": [
+				"luci-app-frps-advanced"
+			]
+		}
+	},
+	"admin/services/frps-advanced/settings": {
+		"title": "Settings",
+		"order": 1,
+		"action": {
+			"type": "view",
+			"path": "frps-advanced"
+		},
+		"depends": {
+			"acl": [
+				"luci-app-frps-advanced"
+			]
+		}
+	},
+	"admin/services/frps-advanced/plugins": {
+		"title": "HTTP Plugins",
+		"order": 2,
+		"action": {
+			"type": "view",
+			"path": "frps-advanced-plugins"
+		},
+		"depends": {
+			"acl": [
+				"luci-app-frps-advanced"
+			]
+		}
+	},
+	"admin/services/frps-advanced/config": {
+		"title": "TOML Comparison",
+		"order": 3,
+		"action": {
+			"type": "view",
+			"path": "frps-advanced-config"
+		},
+		"depends": {
+			"acl": [
+				"luci-app-frps-advanced"
+			]
+		}
+	},
+	"admin/services/frps-advanced/log": {
+		"title": "Running Log",
+		"order": 4,
+		"action": {
+			"type": "view",
+			"path": "frps-advanced-log"
+		},
+		"depends": {
+			"acl": [
+				"luci-app-frps-advanced"
+			]
+		}
+	}
+}

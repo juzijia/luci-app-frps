@@ -1,0 +1,1308 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:94
+msgid "0 means unlimited."
+msgstr "0 表示不限制。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:81
+msgid "Access via /metrics when dashboard port is configured."
+msgstr "配置面板端口后通过 /metrics 访问。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Added"
+msgstr "新增"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:58
+msgid "Additional auth scopes"
+msgstr "附加认证范围"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:456
+msgid ""
+"Address on which proxy listeners bind. Leave empty to use bindAddr. This is "
+"an IP/listen address, not a port."
+msgstr ""
+"代理监听器绑定的地址。留空则使用控制连接监听地址。这是 IP/监听地址，不是端"
+"口。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:43
+msgid "Address proxies listen on; defaults to bindAddr when empty."
+msgstr "代理数据流量监听地址；留空时使用控制连接监听地址。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:312
+msgid "Advanced"
+msgstr "高级"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:95
+msgid "Allow ports"
+msgstr "允许端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:86
+msgid ""
+"Allows multiple requests from a client to share a single TCP connection."
+msgstr "允许多个请求通过单一 TCP 连接复用。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:81
+msgid "At least one event is required."
+msgstr "至少选择一个处理事件。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:70
+msgid ""
+"At least one required. Can intercept Login, NewProxy, CloseProxy, Ping, "
+"NewWorkConn, and NewUserConn events."
+msgstr ""
+"至少选一个。可拦截 Login、NewProxy、CloseProxy、Ping、NewWorkConn、"
+"NewUserConn 事件。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:349
+msgid "Auth & TLS"
+msgstr "认证与 TLS"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:373
+msgid "Authentication method"
+msgstr "认证方式"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:56
+msgid "Authentication token"
+msgstr "认证 token"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:104
+msgid "Auto-gen SSH private key path"
+msgstr "自动生成 SSH 私钥路径"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:884
+msgid ""
+"Back up the current saved configuration or restore it from a backup file."
+msgstr "备份当前已保存的配置，或从备份文件中恢复。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:771
+msgid "Backend validation failed"
+msgstr "后端验证失败"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:823
+msgid "Backup exported successfully."
+msgstr "备份已成功导出。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:891
+msgid "Backup source"
+msgstr "备份来源"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:772
+#: htdocs/luci-static/resources/view/frps-advanced.js:788
+msgid "Backup validation failed:"
+msgstr "备份验证失败："
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Backup validation passed."
+msgstr "备份验证通过。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:308
+msgid "Basic"
+msgstr "基础"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:41
+msgid "Bind address"
+msgstr "控制连接监听地址"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:42
+msgid "Bind port"
+msgstr "控制连接监听端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:41
+msgid "BindAddr specifies the address that the server binds to."
+msgstr "服务器绑定的监听地址。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:42
+msgid "BindPort specifies the port that the server listens on."
+msgstr "服务器控制连接的监听端口。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:459
+msgid ""
+"CA certificate used to verify client certificates for mutual TLS (mTLS). "
+"Leave empty for normal TLS."
+msgstr "用于验证客户端证书的 CA 证书（双向 TLS/mTLS）。普通 TLS 留空。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:829
+msgid "Cancel"
+msgstr "取消"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:157
+msgid "Candidate configuration is empty."
+msgstr "候选配置为空。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:157
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:159
+msgid "Candidate generation failed."
+msgstr "候选配置生成失败。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Changed"
+msgstr "修改"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:541
+msgid "Check version after saving the new path"
+msgstr "保存后检测新路径版本"
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:255
+msgid "Clear Log"
+msgstr "清空日志"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:330
+msgid "Collecting data ..."
+msgstr "正在收集数据…"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:58
+msgid "Comma-separated: HeartBeats, NewWorkConns."
+msgstr "逗号分隔，例如：HeartBeats, NewWorkConns。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:95
+msgid "Comma/space separated port ranges. Empty means all allowed."
+msgstr "逗号或空格分隔的端口范围，留空表示全部允许。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:413
+#: htdocs/luci-static/resources/view/frps-advanced.js:883
+msgid "Configuration Backup & Restore"
+msgstr "配置备份与恢复"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:338
+msgid "Configuration Reference"
+msgstr "配置参考"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:219
+msgid "Configuration path:"
+msgstr "配置路径："
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:726
+msgid "Configuration restored successfully, FRPS has been reloaded."
+msgstr "配置导入成功，FRPS 已重新加载"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:728
+msgid "Configuration restored successfully, FRPS is currently not running."
+msgstr "配置导入成功，FRPS 当前未运行"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:730
+msgid "Configuration restored successfully, FRPS running state is unknown."
+msgstr "配置导入成功，FRPS 运行状态未知"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:732
+msgid "Configuration restored successfully, but FRPS reload failed."
+msgstr "配置导入成功，但 FRPS 重新加载失败"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:18
+msgid ""
+"Configure external HTTP services that frps calls during proxy events. These "
+"services must be deployed separately."
+msgstr "配置 frps 在代理事件发生时调用的外部 HTTP 服务。外部服务需自行部署。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:830
+msgid "Confirm Export"
+msgstr "确认导出"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:430
+msgid ""
+"Controls which network interface accepts frpc control connections. Default "
+"0.0.0.0 listens on all interfaces. Use 127.0.0.1 to restrict to local "
+"connections only."
+msgstr ""
+"控制 frpc 控制连接的监听网卡地址。默认 0.0.0.0 监听所有接口；仅需本机访问时可"
+"填 127.0.0.1 以缩小暴露面。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:91
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:162
+msgid "Current Runtime Configuration"
+msgstr "当前运行配置"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:892
+msgid "Current saved FRP configuration"
+msgstr "当前已保存的 FRP 配置"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:556
+msgid "Current version"
+msgstr "当前版本"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:52
+msgid "Custom 404 page"
+msgstr "自定义 404 页面"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:350
+msgid "Dashboard"
+msgstr "管理面板"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:76
+msgid "Dashboard TLS certificate"
+msgstr "面板 TLS 证书"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:79
+msgid "Dashboard TLS certificate name"
+msgstr "面板 TLS 证书名称"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:77
+msgid "Dashboard TLS private key"
+msgstr "面板 TLS 私钥"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:449
+msgid ""
+"Dashboard TLS settings: certFile and keyFile must be paired to serve the "
+"dashboard over HTTPS; trustedCaFile enables client certificate verification "
+"(mutual TLS, usually not needed); serverName overrides the verified Server "
+"Name in special setups."
+msgstr ""
+"面板 TLS：证书与私钥必须配对才能使用 HTTPS；可信 CA 用于验证客户端证书"
+"（mTLS，通常不需要）；服务器名称覆盖仅用于特殊证书场景。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:78
+msgid "Dashboard TLS trusted CA"
+msgstr "面板 TLS 受信 CA"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:75
+msgid "Dashboard password"
+msgstr "面板密码"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:73
+msgid "Dashboard port"
+msgstr "面板端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:80
+msgid "Dashboard static assets directory"
+msgstr "面板静态资源目录"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:74
+msgid "Dashboard user"
+msgstr "面板用户"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:61
+#: htdocs/luci-static/resources/view/frps-advanced.js:68
+msgid "Debug only."
+msgstr "仅供调试。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:80
+msgid "Debug only; leave empty to use built-in resources."
+msgstr "仅供调试，留空使用内建资源。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:97
+msgid "Default 1500."
+msgstr "默认 1500。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:89
+msgid ""
+"Default 5. Larger client values are forced down; bigger pools use more "
+"connections and memory."
+msgstr "默认 5。客户端配置超过该值会被强制调低；池越大占用连接与内存越多。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:448
+msgid ""
+"Default is 127.0.0.1 for local access only. Set it to 0.0.0.0 to allow LAN "
+"access. WAN access is controlled by the OpenWrt / ImmortalWrt firewall "
+"rules. Configure a management panel username and password to prevent "
+"unauthorized access."
+msgstr ""
+"默认 127.0.0.1，仅本机访问。设置为 0.0.0.0 可以局域网访问，WAN 口访问由 "
+"OpenWrt / ImmortalWrt 防火墙规则决定。建议配置面板账号和密码，避免未授权访"
+"问。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:72
+msgid ""
+"Default is 127.0.0.1. Set to 0.0.0.0 to listen on all network interfaces."
+msgstr "默认 127.0.0.1，监听所有网络请设置为 0.0.0.0。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:35
+msgid "Default: root"
+msgstr "默认为：root"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:68
+msgid "Detailed errors to client"
+msgstr "详细错误发送给客户端"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:512
+#: htdocs/luci-static/resources/view/frps-advanced.js:546
+msgid "Detecting version…"
+msgstr "正在检测版本…"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:303
+msgid "Display mode"
+msgstr "显示模式"
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:284
+msgid ""
+"Displays recent FRPS system logs, up to 100 lines or 12 KiB, refreshing "
+"every 5 seconds. Clear Log only clears this display."
+msgstr ""
+"显示最近的 FRPS 系统日志，最多 100 行或 12 KiB，每 5 秒自动刷新。\"清空日志"
+"\"仅清除此页面的显示内容。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:81
+msgid "Enable Prometheus metrics"
+msgstr "启用 Prometheus 指标"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:82
+msgid "Enable pprof"
+msgstr "启用 pprof"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:33
+msgid "Enable service"
+msgstr "启用服务"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:66
+msgid "Enables client certificate verification and forces TLS."
+msgstr "启用客户端证书校验并强制 TLS。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:106
+msgid ""
+"Experimental fields only. Each line appended as-is; avoid duplicating "
+"existing fields."
+msgstr "仅用于实验性字段。每行原样追加，避免与现有字段重复。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:826
+#: htdocs/luci-static/resources/view/frps-advanced.js:888
+#: htdocs/luci-static/resources/view/frps-advanced.js:895
+msgid "Export Configuration"
+msgstr "导出配置"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:833
+msgid "Export failed:"
+msgstr "导出失败："
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:414
+msgid ""
+"Export or restore FRP configuration. Service and executable settings are "
+"preserved. Only accepts JSON backups exported by this plugin."
+msgstr ""
+"导出或恢复 FRP 配置。服务和可执行文件设置将保持不变。仅接受由本插件导出的 "
+"JSON 备份。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:889
+msgid "Export the current saved FRPS configuration as a JSON backup file."
+msgstr "将当前已保存的 FRPS 配置导出为 JSON 备份文件。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:458
+msgid ""
+"Extends authentication to additional FRP operations such as HeartBeats and "
+"NewWorkConns. Usually leave empty unless specifically required."
+msgstr ""
+"将认证扩展到其他 FRP 操作，如 HeartBeats 和 NewWorkConns。如无特殊需求，通常"
+"留空。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:352
+msgid "Extensions"
+msgstr "拓展功能"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:792
+msgid "Failed to read backup file."
+msgstr "读取备份文件失败。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:743
+msgid "File is empty or too small."
+msgstr "文件为空或太小。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:230
+msgid "File path:"
+msgstr "文件路径："
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:744
+msgid "File too large, max 256 KiB."
+msgstr "文件过大，最大 256 KiB。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:57
+msgid "Frp 0.64.0+. Avoids token appearing in generated TOML."
+msgstr "FRP 0.64.0+。避免 token 出现在生成的 TOML 中。"
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:3
+msgid "Frp Server"
+msgstr "Frp 服务端"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:562
+msgid "Frp executable not found; install or upload it and retry"
+msgstr "未检测到 frps 可执行文件，请安装或上传后重试"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:336
+msgid ""
+"Frp server management interface. Saving updates UCI only; TOML is generated "
+"on apply."
+msgstr "Frp 服务端管理界面。保存操作只更新 UCI，TOML 在应用时生成。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:217
+msgid "Frp server not enabled"
+msgstr "Frp 服务端未启用"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:220
+msgid "Frp server running"
+msgstr "Frp 服务端运行中"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:223
+msgid "Frp server start failed"
+msgstr "Frp 服务端启动失败"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:226
+msgid "Frp server stopped"
+msgstr "Frp 服务端已停止"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:155
+msgid ""
+"Generated from the saved UCI configuration. Candidate config; verified on "
+"Save & Apply."
+msgstr "根据已保存的 UCI 配置生成，保存并应用时验证。"
+
+#: root/usr/share/rpcd/acl.d/luci-app-frps-advanced.json:3
+msgid "Grant access to LuCI app frps-advanced"
+msgstr "授予对 LuCI 应用 frps-advanced 的访问权限"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:23
+msgid "HTTP Plugin"
+msgstr "HTTP 插件"
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:27
+msgid "HTTP Plugins"
+msgstr "HTTP 插件"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:17
+msgid "HTTP Server Plugins"
+msgstr "HTTP 服务端插件"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:69
+msgid "Handled events"
+msgstr "处理事件"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:90
+msgid "Heartbeat timeout"
+msgstr "心跳超时"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:900
+#: htdocs/luci-static/resources/view/frps-advanced.js:908
+msgid "Import & Restore"
+msgstr "导入并恢复"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:872
+msgid "Import failed:"
+msgstr "导入失败："
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:704
+msgid ""
+"Import will overwrite the saved FRP configuration. Service enablement, "
+"executable path, and run user are preserved."
+msgstr ""
+"导入将覆盖已保存的 FRP 配置。服务启用状态、可执行文件路径和运行用户将保持不"
+"变。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:208
+msgid ""
+"Important: TOML may contain tokens, passwords, and certificate paths. Do not "
+"screenshot or share it publicly."
+msgstr "重要提示：TOML 可能包含 token、密码和证书路径，请勿截图或公开分享。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:825
+msgid ""
+"Important: The backup file contains tokens, passwords, and other sensitive "
+"information. Keep it secure."
+msgstr "重要提示：备份文件包含 token、密码等敏感信息，请妥善保管。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:840
+msgid "Importing..."
+msgstr "正在导入……"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:44
+msgid "KCP bind port"
+msgstr "KCP 监听端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:162
+msgid "Last Generated Runtime Configuration"
+msgstr "最近生成的运行配置"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:73
+msgid "Leave empty to disable the dashboard."
+msgstr "留空则禁用面板。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:102
+msgid "Leave empty to disable."
+msgstr "留空则禁用。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:348
+msgid "Listen & Route"
+msgstr "监听与路由"
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:240
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:258
+msgid "Log display cleared. New FRPS log entries will appear automatically."
+msgstr "日志显示已清空，新的 FRPS 日志将自动显示。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:36
+msgid "Log level"
+msgstr "日志级别"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:72
+msgid "Management panel address"
+msgstr "管理面板地址"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:89
+msgid "Max connection pool count"
+msgstr "最大连接池数量"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:94
+msgid "Max ports per client"
+msgstr "每客户端最大端口数"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:444
+msgid ""
+"Maximum UDP packet size when proxying UDP services (default 1500). Server "
+"and client values must match."
+msgstr ""
+"代理 UDP 服务时的最大数据包大小（默认 1500），服务端与客户端必须保持一致。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:461
+msgid ""
+"Maximum concurrent incoming QUIC streams per connection. Only relevant when "
+"QUIC transport is used; normally keep the default."
+msgstr ""
+"每个连接的最大并发 QUIC 入站流数。仅在使用 QUIC 传输时有效；通常保持默认值。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:441
+msgid ""
+"Maximum number of simultaneous proxies a single client may create. 0 or "
+"empty means unlimited. Useful to cap resource usage per client."
+msgstr ""
+"单个客户端最多同时创建的代理数。0 或留空表示不限制。可用于限制单客户端资源占"
+"用。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:450
+msgid ""
+"Monitoring and debugging endpoints: Prometheus metrics are served at /"
+"metrics only when the dashboard port is configured; pprof exposes Go runtime "
+"profiling data. Keep both disabled or protected in production."
+msgstr ""
+"监控与调试端点：仅配置面板端口后 /metrics 才提供 Prometheus 指标；pprof 会暴"
+"露 Go 运行时分析数据。生产环境应保持关闭或加以保护。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:98
+msgid "NAT hole analysis data reserve hours"
+msgstr "NAT 穿透分析数据保留小时数"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:22
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:28
+msgid "New HTTP plugin"
+msgstr "新建 HTTP 插件"
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:242
+msgid "No FRPS log entries yet."
+msgstr "暂无 FRPS 日志。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:741
+#: htdocs/luci-static/resources/view/frps-advanced.js:837
+msgid "No backup file selected."
+msgstr "未选择备份文件。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:137
+msgid "No data."
+msgstr "无数据"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:807
+#: htdocs/luci-static/resources/view/frps-advanced.js:808
+msgid "No valid frps-advanced UCI config found, backup not generated."
+msgstr "未找到有效的 frps-advanced UCI 配置，备份未生成。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:836
+msgid "No validated backup data available."
+msgstr "没有已验证的备份数据。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:437
+msgid ""
+"Note: configuring a TLS client CA (trustedCaFile) automatically forces TLS "
+"regardless of this toggle."
+msgstr "注意：配置 TLS 客户端 CA 后，FRPS 会自动强制使用 TLS，不受此开关影响。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:376
+msgid "OIDC"
+msgstr "OIDC"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:60
+msgid "OIDC Audience"
+msgstr "OIDC 受众"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:59
+msgid "OIDC Issuer"
+msgstr "OIDC 签发者"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:453
+msgid ""
+"OIDC authentication group: issuer and audience define how client tokens are "
+"validated; skipExpiryCheck and skipIssuerCheck disable security checks for "
+"debugging or special compatibility only."
+msgstr ""
+"OIDC 认证：签发者和受众用于验证客户端 token；跳过过期或签发者检查会关闭安全校"
+"验，仅用于调试或特殊兼容场景。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:61
+msgid "OIDC skip expiry check"
+msgstr "OIDC 跳过过期检查"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:62
+msgid "OIDC skip issuer check"
+msgstr "OIDC 跳过签发者检查"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:59
+msgid "OIDC token issuer URL."
+msgstr "OIDC token 的签发者 URL。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:63
+msgid "Only accept TLS control connections"
+msgstr "仅接受 TLS 控制连接"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Options"
+msgstr "配置项"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:67
+msgid "Override Server Name in certificate verification."
+msgstr "覆盖证书校验使用的服务器名称。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:79
+msgid "Override Server Name in dashboard TLS config."
+msgstr "覆盖面板 TLS 配置中的服务器名称。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:460
+msgid ""
+"Overrides the Server Name used during certificate verification. Usually "
+"leave empty unless certificate verification requires a specific name."
+msgstr ""
+"覆盖证书验证时使用的服务器名称。通常留空，仅在证书验证需要特定名称时设置。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:50
+msgid "Pass through CONNECT requests for tcpmux proxies."
+msgstr "透传 tcpmux 代理的 CONNECT 请求。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:34
+msgid "Path to the frps binary file"
+msgstr "frps 二进制文件路径"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:742
+msgid "Please select a .json backup file."
+msgstr "请选择 .json 备份文件。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:31
+msgid "Plugin instance name"
+msgstr "插件实例名称"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:44
+msgid "Plugin instance name already exists."
+msgstr "插件实例名称已存在。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:37
+msgid "Plugin instance name is required."
+msgstr "插件实例名称不能为空。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:50
+msgid "Plugin service address"
+msgstr "插件服务地址"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:55
+msgid "Plugin service address is required."
+msgstr "插件服务地址不能为空。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:49
+msgid "Port for tcpmux proxies using the httpconnect multiplexer."
+msgstr "使用 httpconnect 复用器的 tcpmux 代理监听端口。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:442
+msgid ""
+"Ports that proxies are allowed to bind on, e.g. 80,443,6000-7000. Empty "
+"means all ports are allowed. Restricting this is a security best practice "
+"when clients are untrusted."
+msgstr ""
+"允许代理绑定的服务端端口，例如 80,443,6000-7000。留空表示全部允许。客户端不可"
+"信时建议限制端口范围。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:43
+msgid "Proxy bind address"
+msgstr "代理流量监听地址"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:45
+msgid "QUIC bind port"
+msgstr "QUIC 监听端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:91
+msgid "QUIC keepalive period"
+msgstr "QUIC 保活周期"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:92
+msgid "QUIC max idle timeout"
+msgstr "QUIC 最大空闲超时"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:93
+msgid "QUIC max incoming streams"
+msgstr "QUIC 最大传入流"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:451
+msgid ""
+"QUIC tuning options for QUIC transport clients: keepalivePeriod (default "
+"10s), maxIdleTimeout (default 30s), maxIncomingStreams (default 100000). "
+"Only relevant when clients use QUIC."
+msgstr ""
+"QUIC 传输调优：保活周期默认 10 秒，最大空闲超时默认 30 秒，最大传入流默认 "
+"100000。仅客户端使用 QUIC 时生效。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:445
+msgid ""
+"Raw TOML lines appended to the generated configuration for experimental "
+"fields not covered by this form. Invalid TOML or duplicate keys can make the "
+"service fail to apply. Avoid adding options that already exist above."
+msgstr ""
+"将每行原样追加到生成配置的实验性字段。无效 TOML 或与现有字段重复可能导致服务"
+"无法应用配置。请勿重复添加上方已有的选项。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:106
+msgid "Raw TOML options"
+msgstr "原始 TOML 选项"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:57
+msgid "Read token from file"
+msgstr "从文件读取 token"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:746
+msgid "Reading and validating backup file..."
+msgstr "正在读取和验证备份文件……"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:457
+msgid ""
+"Reads the authentication token from a plain text file. The file contains "
+"only the token value. Do not configure this together with an inline token."
+msgstr ""
+"从纯文本文件读取认证 token。文件仅包含 token 值。请勿与直接填写 token 同时配"
+"置。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:266
+msgid "Refresh"
+msgstr "刷新"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Removed"
+msgstr "删除"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:59
+msgid "Request path"
+msgstr "请求路径"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:65
+msgid "Request path is required."
+msgstr "请求路径不能为空。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:32
+msgid "Required and must be unique among plugins, e.g. user-manager."
+msgstr "必填，且在插件列表中必须唯一，例如 user-manager。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:60
+msgid "Required audience value; skip check if empty."
+msgstr "必需的受众值，留空则跳过校验。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:46
+msgid "Required to support HTTP-type proxies."
+msgstr "要支持 HTTP 类型代理必须配置。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:48
+msgid "Required to support HTTPS-type proxies."
+msgstr "要支持 HTTPS 类型代理必须配置。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:60
+msgid "Required; HTTP path frps uses when calling the plugin, e.g. /handler."
+msgstr "必填，frps 调用插件时使用的 HTTP 路径，例如 /handler。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:51
+msgid "Required; external HTTP plugin listen address, e.g. 127.0.0.1:9000."
+msgstr "必填，HTTP 插件监听地址，例如 127.0.0.1:9000。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:37
+msgid "Respawn when crashed"
+msgstr "异常退出后自动重启"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:462
+msgid ""
+"Retention time for NAT hole-punching analysis data, in hours. Normally no "
+"adjustment is required."
+msgstr "NAT 穿透分析数据的保留时间（小时）。通常无需调整。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:443
+msgid ""
+"Returns detailed error messages to clients (default enabled). Useful for "
+"debugging but may leak internal details; disable in production if concerned."
+msgstr ""
+"向客户端返回详细错误信息（默认开启）。便于排查问题，但可能泄露内部细节；生产"
+"环境可按需关闭。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:347
+msgid "Run & Log"
+msgstr "运行与日志"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:35
+msgid "Run daemon as user"
+msgstr "运行用户"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:178
+msgid "Running"
+msgstr "运行中"
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:53
+msgid "Running Log"
+msgstr "运行日志"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:172
+msgid "Runtime configuration file is empty"
+msgstr "运行配置文件为空"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:171
+msgid "Runtime configuration file is too large"
+msgstr "运行配置文件过大"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:170
+msgid "Runtime configuration file not found"
+msgstr "未找到运行配置文件"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:167
+msgid "Runtime configuration is available."
+msgstr "运行配置可用。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:175
+msgid "Runtime configuration is unavailable."
+msgstr "运行配置不可用。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:105
+msgid "SSH authorized_keys"
+msgstr "SSH authorized_keys"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:103
+msgid "SSH private key"
+msgstr "SSH 私钥"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:102
+msgid "SSH tunnel gateway port"
+msgstr "SSH 隧道网关端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:452
+msgid ""
+"SSH tunnel gateway: bindPort exposes an SSH endpoint on the server (leave "
+"empty to disable); privateKeyFile is the server key (empty uses the auto-"
+"generated key); autoGenPrivateKeyPath generates an RSA key when missing "
+"(default ./.autogen_ssh_key); authorizedKeysFile enables passwordless client "
+"authentication when set."
+msgstr ""
+"SSH 隧道网关：监听端口用于开放 SSH 入口（留空禁用）；服务端私钥留空时使用自动"
+"生成的密钥；自动生成路径在密钥缺失时生成 RSA 私钥（默认 ./."
+"autogen_ssh_key）；authorized_keys 文件用于客户端免密认证。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:217
+msgid "Saved Configuration Preview"
+msgstr "已保存配置预览"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:904
+msgid "Select Backup File"
+msgstr "选择备份文件"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:901
+msgid ""
+"Select a backup file. The router will validate it before restoring the "
+"configuration."
+msgstr "请选择备份文件，路由器将在恢复配置前验证其有效性。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:178
+msgid "Service status"
+msgstr "服务状态"
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:14
+msgid "Settings"
+msgstr "设置"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:434
+msgid ""
+"Shared secret that clients must present when connecting. Use a long random "
+"value. Mutually exclusive with \"Read token from file\"; without a token "
+"file the token appears in the generated TOML."
+msgstr ""
+"客户端连接时必须提供共享 token。请使用足够长的随机值。与“从文件读取 token”互"
+"斥；不使用 token 文件时，生成的 TOML 中会包含 token。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:297
+#: htdocs/luci-static/resources/view/frps-advanced.js:316
+msgid "Show all settings"
+msgstr "显示全部设置"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:296
+#: htdocs/luci-static/resources/view/frps-advanced.js:315
+msgid "Show common settings only"
+msgstr "仅显示常用设置"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:123
+msgid "Show differences only"
+msgstr "仅显示差异"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:123
+msgid "Show full configuration"
+msgstr "显示完整配置"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:62
+msgid "Special compatibility only."
+msgstr "仅用于特殊兼容场景。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:178
+msgid "Stopped"
+msgstr "已停止"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:51
+msgid "Subdomain root domain"
+msgstr "子域名根域"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:51
+msgid "Suffix for subdomain-based proxies; requires vhost HTTP/HTTPS ports."
+msgstr "子域名代理的根域后缀；需配合 vhost HTTP/HTTPS 端口使用。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:88
+msgid "TCP keepalive interval"
+msgstr "TCP 保活间隔"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:86
+msgid "TCP multiplexing"
+msgstr "TCP 多路复用"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:439
+msgid ""
+"TCP multiplexing lets a client share one TCP connection for multiple proxies "
+"(enabled by default). Disable for maximum compatibility with unusual NAT or "
+"firewall setups; connection count increases when disabled."
+msgstr ""
+"TCP 多路复用让一个客户端用一条 TCP 连接承载多个代理（默认开启）。遇到特殊 "
+"NAT/防火墙兼容问题时可以关闭；关闭后连接数会增多。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:87
+msgid "TCP mux keepalive interval"
+msgstr "TCPMux 保活间隔"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:49
+msgid "TCPMux HTTP CONNECT port"
+msgstr "TCPMux HTTP CONNECT 端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:50
+msgid "TCPMux passthrough"
+msgstr "TCPMux 透传"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:436
+msgid "TLS Force"
+msgstr "强制 TLS"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:67
+msgid "TLS certificate name"
+msgstr "TLS 证书名称"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:66
+msgid "TLS client CA"
+msgstr "TLS 客户端 CA"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:64
+msgid "TLS server certificate"
+msgstr "TLS 服务端证书"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:65
+msgid "TLS server private key"
+msgstr "TLS 服务端私钥"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:447
+msgid ""
+"TLS settings for control connections: certFile must be paired with keyFile; "
+"trustedCaFile enables client certificate verification and forces TLS (mutual "
+"TLS); serverName overrides the verified Server Name and is only needed in "
+"special certificate setups. Required when \"Only accept TLS control "
+"connections\" is enabled."
+msgstr ""
+"控制连接 TLS：证书与私钥必须配对；可信 CA 用于验证客户端证书并强制 TLS"
+"（mTLS）；服务器名称覆盖仅用于特殊证书场景。启用“仅接受 TLS 控制连接”时必须配"
+"置证书和私钥。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:85
+msgid "TLS verification"
+msgstr "TLS 验证"
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:40
+msgid "TOML Comparison"
+msgstr "TOML 对比"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:825
+msgid "This backup will contain %s configuration options."
+msgstr "本次将导出 %s 个配置项。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:190
+msgid ""
+"This page is read-only and will not modify the configuration or reload FRPS."
+msgstr "本页面只读，不会修改配置或重新加载 FRPS。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:433
+msgid ""
+"Timeout for waiting for the HTTP response header from the target server, in "
+"seconds (default 60). Increase for slow upstream web servers."
+msgstr ""
+"等待目标服务器返回 HTTP 响应头的超时时间，单位秒（默认 60）。上游 Web 服务响"
+"应慢时可适当调大。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:428
+msgid ""
+"To reduce privileges, select a different system user and ensure that user "
+"has permissions to read the configuration file, certificates, and keys."
+msgstr ""
+"如需降低权限，请选择其他系统用户，并确保该用户有权读取配置文件、证书和密钥。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:375
+msgid "Token"
+msgstr "Token"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:374
+msgid "Token suits most deployments; OIDC for unified identity environments."
+msgstr "Token 适合大多数部署；OIDC 用于统一身份认证环境。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:351
+msgid "Transport & Limits"
+msgstr "传输与限制"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:82
+msgid "Troubleshooting only."
+msgstr "仅用于故障排查。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:97
+msgid "UDP packet size"
+msgstr "UDP 包大小"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:431
+msgid ""
+"UDP port for KCP protocol used by clients that select KCP transport. Leave "
+"empty to disable KCP. Requires bindPort as well; KCP helps on lossy networks "
+"but is usually slower on stable ones."
+msgstr ""
+"使用 KCP 传输的客户端所连的 UDP 端口。留空禁用 KCP。需同时保留 bindPort；KCP "
+"在高丢包网络下更有优势，稳定网络下性能通常不如 TCP。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:432
+msgid ""
+"UDP port for QUIC protocol used by clients that select QUIC transport. Leave "
+"empty to disable QUIC. Requires bindPort as well."
+msgstr ""
+"使用 QUIC 传输的客户端所连的 UDP 端口。留空禁用 QUIC。需同时保留 bindPort。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:44
+msgid "UDP port; leave empty to disable KCP."
+msgstr "UDP 端口，留空则禁用 KCP。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:45
+msgid "UDP port; leave empty to disable QUIC."
+msgstr "UDP 端口，留空则禁用 QUIC。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:82
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:151
+msgid "Unable to load TOML comparison data."
+msgstr "无法加载 TOML 对比数据。"
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:173
+msgid "Unable to read runtime configuration"
+msgstr "无法读取运行配置"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:214
+msgid "Unable to read service status"
+msgstr "无法读取服务状态"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:564
+#: htdocs/luci-static/resources/view/frps-advanced.js:568
+msgid "Unable to read version; refresh and retry"
+msgstr "无法读取版本，请刷新后重试"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:779
+msgid "Unable to validate backup on router:"
+msgstr "无法在路由器上验证备份："
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:98
+msgid ""
+"Unit: hours; default 168 (7 days). Only affects NAT hole punching scenarios."
+msgstr "单位：小时，默认 168（7 天）。仅影响 NAT 打洞场景。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:91
+#: htdocs/luci-static/resources/view/frps-advanced.js:92
+msgid "Unit: seconds."
+msgstr "单位：秒。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:90
+msgid ""
+"Unit: seconds. A client without a heartbeat for longer than this value is "
+"considered disconnected (effective when TCPMux is disabled)."
+msgstr "单位：秒，客户端无心跳超过该时间视为断连（关闭 TCPMux 时生效）。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:96
+msgid ""
+"Unit: seconds; default 10. Timeout waiting for the client response after a "
+"user connection is established."
+msgstr "单位：秒，默认 10。用户连接建立后等待客户端响应的超时时间。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:87
+msgid ""
+"Unit: seconds; default 30. TCP mux heartbeat interval; tune only when mux "
+"stability issues occur."
+msgstr "单位：秒，默认 30。TCPMux 心跳间隔；仅在 TCPMux 稳定性异常时调整。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:47
+msgid "Unit: seconds; default 60."
+msgstr "单位：秒，默认 60。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:88
+msgid "Unit: seconds; default 7200. Negative disables keepalive."
+msgstr "单位：秒，默认 7200。负数表示禁用保活。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:56
+msgid "Use a sufficiently long random token."
+msgstr "使用足够长的随机 token。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:36
+msgid "Use info for daily use; debug/trace for short-term troubleshooting."
+msgstr "日常使用 info，debug/trace 仅用于短期排错。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:96
+msgid "User connection timeout"
+msgstr "用户连接超时"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:757
+msgid "Validating backup on router…"
+msgstr "正在由路由器验证备份……"
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:86
+msgid ""
+"Verify the plugin HTTPS certificate; only meaningful when the plugin address "
+"uses HTTPS."
+msgstr "校验插件 HTTPS 证书；仅当插件地址使用 HTTPS 时才有实际意义。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:46
+msgid "Vhost HTTP port"
+msgstr "HTTP 虚拟主机端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:47
+msgid "Vhost HTTP timeout"
+msgstr "HTTP 响应头超时"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:48
+msgid "Vhost HTTPS port"
+msgstr "HTTPS 虚拟主机端口"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:440
+msgid ""
+"When TCPMux is enabled, the multiplexed connection mechanism maintains "
+"connection state, so this value does not take effect."
+msgstr "启用 TCPMux 后由多路复用连接机制维护连接状态，此处值不生效。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:437
+msgid ""
+"When enabled, frps will only accept control connections encrypted with TLS. "
+"Non-TLS clients are rejected. Default: off. Scenario: public networks or "
+"untrusted LAN environments. Risk: legacy clients without TLS support will be "
+"unable to connect. Requires TLS certificate and key to be configured."
+msgstr ""
+"开启后，frps 仅接受使用 TLS 的控制连接，并拒绝未启用 TLS 的客户端。默认关闭。"
+"适合公网或不可信网络环境。风险：未启用 TLS 或不兼容的旧客户端将无法连接。如需"
+"证书身份验证或双向 TLS，请另外配置证书、私钥和受信任 CA。"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:402
+msgid "debug"
+msgstr "调试"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:405
+msgid "error"
+msgstr "错误"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:34
+msgid "frps executable"
+msgstr "frps 可执行文件"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:403
+msgid "info"
+msgstr "信息"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:401
+msgid "trace"
+msgstr "跟踪"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:404
+msgid "warn"
+msgstr "警告"
+
+#~ msgid "When enabled, FRPS runtime logs are written to the log file."
+#~ msgstr "启用后将 FRPS 运行日志写入日志文件。"
+
+#~ msgid ""
+#~ "Additional authentication scopes: HeartBeats and/or NewWorkConns. Clients "
+#~ "must enable the same scopes so heartbeats and new connections stay "
+#~ "authenticated."
+#~ msgstr ""
+#~ "附加认证范围：HeartBeats 和/或 NewWorkConns。客户端需开启相同范围，心跳与"
+#~ "新连接才会携带认证信息。"
+
+#~ msgid "Append frps stdout/stderr to the same log file."
+#~ msgstr "将 frps 标准输出和错误输出追加到同一日志文件。"
+
+#~ msgid "Backup validation failed: "
+#~ msgstr "备份验证失败："
+
+#~ msgid "Capture stdout and stderr"
+#~ msgstr "同时捕获标准输出与错误"
+
+#~ msgid "Disable ANSI color"
+#~ msgstr "禁用 ANSI 颜色"
+
+#~ msgid ""
+#~ "Displays recent logs, up to 100 lines or 12 KiB, refreshing every 5 "
+#~ "seconds."
+#~ msgstr "显示最近日志，最多 100 行或 12 KiB，每 5 秒自动刷新。"
+
+#~ msgid "Export failed: "
+#~ msgstr "导出失败："
+
+#~ msgid ""
+#~ "Export or restore all plugin settings. Only accepts JSON backups exported "
+#~ "by this plugin."
+#~ msgstr "导出或恢复本插件的全部设置，仅接受由本插件导出的 JSON 备份。"
+
+#~ msgid "File path: "
+#~ msgstr "文件路径："
+
+#~ msgid "Only affects ANSI colors when log output is set to console."
+#~ msgstr "仅在日志输出到控制台时影响 ANSI 颜色。"
+
+#~ msgid "Import failed: "
+#~ msgstr "导入失败："
+
+#~ msgid ""
+#~ "Import will overwrite the current saved configuration. FRPS runtime state "
+#~ "will not change."
+#~ msgstr "导入会覆盖当前已保存的配置，FRPS 运行状态不会改变。"
+
+#~ msgid "Log file"
+#~ msgstr "日志文件"
+
+#~ msgid "Logging disabled. Check system log for service messages."
+#~ msgstr "日志未启用，请查看系统日志中的服务消息。"
+
+#~ msgid "Log output is currently directed to system log."
+#~ msgstr "日志当前输出到系统日志。"
+
+#~ msgid "Log retention days"
+#~ msgstr "日志保留天数"
+
+#~ msgid "No running log yet."
+#~ msgstr "暂无运行日志。"
+
+#~ msgid "Recommended: /var/log or /tmp to reduce flash wear."
+#~ msgstr "建议使用 /var/log 或 /tmp 以减少闪存磨损。"
+
+#~ msgid "Refresh All"
+#~ msgstr "全部刷新"
+
+#~ msgid "Unable to read running log. Please check file permissions."
+#~ msgstr "无法读取运行日志，请检查文件权限。"
+
+#~ msgid "Unable to validate backup on router: "
+#~ msgstr "无法在路由器上验证备份："
+
+#~ msgid "Enable logging"
+#~ msgstr "启用日志"
+
+#~ msgid ""
+#~ "FRPS writes to the OpenWrt system log through procd; use info normally "
+#~ "and debug/trace only for short-term troubleshooting."
+#~ msgstr ""
+#~ "FRPS 通过 procd 写入 OpenWrt 系统日志；日常使用 info，debug/trace 仅用于短"
+#~ "期排错。"

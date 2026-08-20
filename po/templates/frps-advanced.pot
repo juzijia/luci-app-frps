@@ -1,0 +1,1164 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:94
+msgid "0 means unlimited."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:81
+msgid "Access via /metrics when dashboard port is configured."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Added"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:58
+msgid "Additional auth scopes"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:456
+msgid ""
+"Address on which proxy listeners bind. Leave empty to use bindAddr. This is "
+"an IP/listen address, not a port."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:43
+msgid "Address proxies listen on; defaults to bindAddr when empty."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:312
+msgid "Advanced"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:95
+msgid "Allow ports"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:86
+msgid ""
+"Allows multiple requests from a client to share a single TCP connection."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:81
+msgid "At least one event is required."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:70
+msgid ""
+"At least one required. Can intercept Login, NewProxy, CloseProxy, Ping, "
+"NewWorkConn, and NewUserConn events."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:349
+msgid "Auth & TLS"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:373
+msgid "Authentication method"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:56
+msgid "Authentication token"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:104
+msgid "Auto-gen SSH private key path"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:884
+msgid ""
+"Back up the current saved configuration or restore it from a backup file."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:771
+msgid "Backend validation failed"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:823
+msgid "Backup exported successfully."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:891
+msgid "Backup source"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:772
+#: htdocs/luci-static/resources/view/frps-advanced.js:788
+msgid "Backup validation failed:"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Backup validation passed."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:308
+msgid "Basic"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:41
+msgid "Bind address"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:42
+msgid "Bind port"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:41
+msgid "BindAddr specifies the address that the server binds to."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:42
+msgid "BindPort specifies the port that the server listens on."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:459
+msgid ""
+"CA certificate used to verify client certificates for mutual TLS (mTLS). "
+"Leave empty for normal TLS."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:829
+msgid "Cancel"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:157
+msgid "Candidate configuration is empty."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:157
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:159
+msgid "Candidate generation failed."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Changed"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:541
+msgid "Check version after saving the new path"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:255
+msgid "Clear Log"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:330
+msgid "Collecting data ..."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:58
+msgid "Comma-separated: HeartBeats, NewWorkConns."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:95
+msgid "Comma/space separated port ranges. Empty means all allowed."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:413
+#: htdocs/luci-static/resources/view/frps-advanced.js:883
+msgid "Configuration Backup & Restore"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:338
+msgid "Configuration Reference"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:219
+msgid "Configuration path:"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:726
+msgid "Configuration restored successfully, FRPS has been reloaded."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:728
+msgid "Configuration restored successfully, FRPS is currently not running."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:730
+msgid "Configuration restored successfully, FRPS running state is unknown."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:732
+msgid "Configuration restored successfully, but FRPS reload failed."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:18
+msgid ""
+"Configure external HTTP services that frps calls during proxy events. These "
+"services must be deployed separately."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:830
+msgid "Confirm Export"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:430
+msgid ""
+"Controls which network interface accepts frpc control connections. Default "
+"0.0.0.0 listens on all interfaces. Use 127.0.0.1 to restrict to local "
+"connections only."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:91
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:162
+msgid "Current Runtime Configuration"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:892
+msgid "Current saved FRP configuration"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:556
+msgid "Current version"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:52
+msgid "Custom 404 page"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:350
+msgid "Dashboard"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:76
+msgid "Dashboard TLS certificate"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:79
+msgid "Dashboard TLS certificate name"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:77
+msgid "Dashboard TLS private key"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:449
+msgid ""
+"Dashboard TLS settings: certFile and keyFile must be paired to serve the "
+"dashboard over HTTPS; trustedCaFile enables client certificate verification "
+"(mutual TLS, usually not needed); serverName overrides the verified Server "
+"Name in special setups."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:78
+msgid "Dashboard TLS trusted CA"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:75
+msgid "Dashboard password"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:73
+msgid "Dashboard port"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:80
+msgid "Dashboard static assets directory"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:74
+msgid "Dashboard user"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:61
+#: htdocs/luci-static/resources/view/frps-advanced.js:68
+msgid "Debug only."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:80
+msgid "Debug only; leave empty to use built-in resources."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:97
+msgid "Default 1500."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:89
+msgid ""
+"Default 5. Larger client values are forced down; bigger pools use more "
+"connections and memory."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:448
+msgid ""
+"Default is 127.0.0.1 for local access only. Set it to 0.0.0.0 to allow LAN "
+"access. WAN access is controlled by the OpenWrt / ImmortalWrt firewall "
+"rules. Configure a management panel username and password to prevent "
+"unauthorized access."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:72
+msgid ""
+"Default is 127.0.0.1. Set to 0.0.0.0 to listen on all network interfaces."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:35
+msgid "Default: root"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:68
+msgid "Detailed errors to client"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:512
+#: htdocs/luci-static/resources/view/frps-advanced.js:546
+msgid "Detecting version…"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:303
+msgid "Display mode"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:284
+msgid ""
+"Displays recent FRPS system logs, up to 100 lines or 12 KiB, refreshing "
+"every 5 seconds. Clear Log only clears this display."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:81
+msgid "Enable Prometheus metrics"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:82
+msgid "Enable pprof"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:33
+msgid "Enable service"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:66
+msgid "Enables client certificate verification and forces TLS."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:106
+msgid ""
+"Experimental fields only. Each line appended as-is; avoid duplicating "
+"existing fields."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:826
+#: htdocs/luci-static/resources/view/frps-advanced.js:888
+#: htdocs/luci-static/resources/view/frps-advanced.js:895
+msgid "Export Configuration"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:833
+msgid "Export failed:"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:414
+msgid ""
+"Export or restore FRP configuration. Service and executable settings are "
+"preserved. Only accepts JSON backups exported by this plugin."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:889
+msgid "Export the current saved FRPS configuration as a JSON backup file."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:458
+msgid ""
+"Extends authentication to additional FRP operations such as HeartBeats and "
+"NewWorkConns. Usually leave empty unless specifically required."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:352
+msgid "Extensions"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:792
+msgid "Failed to read backup file."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:743
+msgid "File is empty or too small."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:230
+msgid "File path:"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:744
+msgid "File too large, max 256 KiB."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:57
+msgid "Frp 0.64.0+. Avoids token appearing in generated TOML."
+msgstr ""
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:3
+msgid "Frp Server"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:562
+msgid "Frp executable not found; install or upload it and retry"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:336
+msgid ""
+"Frp server management interface. Saving updates UCI only; TOML is generated "
+"on apply."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:217
+msgid "Frp server not enabled"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:220
+msgid "Frp server running"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:223
+msgid "Frp server start failed"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:226
+msgid "Frp server stopped"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:155
+msgid ""
+"Generated from the saved UCI configuration. Candidate config; verified on "
+"Save & Apply."
+msgstr ""
+
+#: root/usr/share/rpcd/acl.d/luci-app-frps-advanced.json:3
+msgid "Grant access to LuCI app frps-advanced"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:23
+msgid "HTTP Plugin"
+msgstr ""
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:27
+msgid "HTTP Plugins"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:17
+msgid "HTTP Server Plugins"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:69
+msgid "Handled events"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:90
+msgid "Heartbeat timeout"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:900
+#: htdocs/luci-static/resources/view/frps-advanced.js:908
+msgid "Import & Restore"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:872
+msgid "Import failed:"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:704
+msgid ""
+"Import will overwrite the saved FRP configuration. Service enablement, "
+"executable path, and run user are preserved."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:208
+msgid ""
+"Important: TOML may contain tokens, passwords, and certificate paths. Do not "
+"screenshot or share it publicly."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:825
+msgid ""
+"Important: The backup file contains tokens, passwords, and other sensitive "
+"information. Keep it secure."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:840
+msgid "Importing..."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:44
+msgid "KCP bind port"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:162
+msgid "Last Generated Runtime Configuration"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:73
+msgid "Leave empty to disable the dashboard."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:102
+msgid "Leave empty to disable."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:348
+msgid "Listen & Route"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:240
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:258
+msgid "Log display cleared. New FRPS log entries will appear automatically."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:36
+msgid "Log level"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:72
+msgid "Management panel address"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:89
+msgid "Max connection pool count"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:94
+msgid "Max ports per client"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:444
+msgid ""
+"Maximum UDP packet size when proxying UDP services (default 1500). Server "
+"and client values must match."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:461
+msgid ""
+"Maximum concurrent incoming QUIC streams per connection. Only relevant when "
+"QUIC transport is used; normally keep the default."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:441
+msgid ""
+"Maximum number of simultaneous proxies a single client may create. 0 or "
+"empty means unlimited. Useful to cap resource usage per client."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:450
+msgid ""
+"Monitoring and debugging endpoints: Prometheus metrics are served at /"
+"metrics only when the dashboard port is configured; pprof exposes Go runtime "
+"profiling data. Keep both disabled or protected in production."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:98
+msgid "NAT hole analysis data reserve hours"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:22
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:28
+msgid "New HTTP plugin"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:242
+msgid "No FRPS log entries yet."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:741
+#: htdocs/luci-static/resources/view/frps-advanced.js:837
+msgid "No backup file selected."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:137
+msgid "No data."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:807
+#: htdocs/luci-static/resources/view/frps-advanced.js:808
+msgid "No valid frps-advanced UCI config found, backup not generated."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:836
+msgid "No validated backup data available."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:437
+msgid ""
+"Note: configuring a TLS client CA (trustedCaFile) automatically forces TLS "
+"regardless of this toggle."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:376
+msgid "OIDC"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:60
+msgid "OIDC Audience"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:59
+msgid "OIDC Issuer"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:453
+msgid ""
+"OIDC authentication group: issuer and audience define how client tokens are "
+"validated; skipExpiryCheck and skipIssuerCheck disable security checks for "
+"debugging or special compatibility only."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:61
+msgid "OIDC skip expiry check"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:62
+msgid "OIDC skip issuer check"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:59
+msgid "OIDC token issuer URL."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:63
+msgid "Only accept TLS control connections"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Options"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:67
+msgid "Override Server Name in certificate verification."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:79
+msgid "Override Server Name in dashboard TLS config."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:460
+msgid ""
+"Overrides the Server Name used during certificate verification. Usually "
+"leave empty unless certificate verification requires a specific name."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:50
+msgid "Pass through CONNECT requests for tcpmux proxies."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:34
+msgid "Path to the frps binary file"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:742
+msgid "Please select a .json backup file."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:31
+msgid "Plugin instance name"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:44
+msgid "Plugin instance name already exists."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:37
+msgid "Plugin instance name is required."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:50
+msgid "Plugin service address"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:55
+msgid "Plugin service address is required."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:49
+msgid "Port for tcpmux proxies using the httpconnect multiplexer."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:442
+msgid ""
+"Ports that proxies are allowed to bind on, e.g. 80,443,6000-7000. Empty "
+"means all ports are allowed. Restricting this is a security best practice "
+"when clients are untrusted."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:43
+msgid "Proxy bind address"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:45
+msgid "QUIC bind port"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:91
+msgid "QUIC keepalive period"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:92
+msgid "QUIC max idle timeout"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:93
+msgid "QUIC max incoming streams"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:451
+msgid ""
+"QUIC tuning options for QUIC transport clients: keepalivePeriod (default "
+"10s), maxIdleTimeout (default 30s), maxIncomingStreams (default 100000). "
+"Only relevant when clients use QUIC."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:445
+msgid ""
+"Raw TOML lines appended to the generated configuration for experimental "
+"fields not covered by this form. Invalid TOML or duplicate keys can make the "
+"service fail to apply. Avoid adding options that already exist above."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:106
+msgid "Raw TOML options"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:57
+msgid "Read token from file"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:746
+msgid "Reading and validating backup file..."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:457
+msgid ""
+"Reads the authentication token from a plain text file. The file contains "
+"only the token value. Do not configure this together with an inline token."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-log.js:266
+msgid "Refresh"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:767
+msgid "Removed"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:59
+msgid "Request path"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:65
+msgid "Request path is required."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:32
+msgid "Required and must be unique among plugins, e.g. user-manager."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:60
+msgid "Required audience value; skip check if empty."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:46
+msgid "Required to support HTTP-type proxies."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:48
+msgid "Required to support HTTPS-type proxies."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:60
+msgid "Required; HTTP path frps uses when calling the plugin, e.g. /handler."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:51
+msgid "Required; external HTTP plugin listen address, e.g. 127.0.0.1:9000."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:37
+msgid "Respawn when crashed"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:462
+msgid ""
+"Retention time for NAT hole-punching analysis data, in hours. Normally no "
+"adjustment is required."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:443
+msgid ""
+"Returns detailed error messages to clients (default enabled). Useful for "
+"debugging but may leak internal details; disable in production if concerned."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:347
+msgid "Run & Log"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:35
+msgid "Run daemon as user"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:178
+msgid "Running"
+msgstr ""
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:53
+msgid "Running Log"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:172
+msgid "Runtime configuration file is empty"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:171
+msgid "Runtime configuration file is too large"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:170
+msgid "Runtime configuration file not found"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:167
+msgid "Runtime configuration is available."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:175
+msgid "Runtime configuration is unavailable."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:105
+msgid "SSH authorized_keys"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:103
+msgid "SSH private key"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:102
+msgid "SSH tunnel gateway port"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:452
+msgid ""
+"SSH tunnel gateway: bindPort exposes an SSH endpoint on the server (leave "
+"empty to disable); privateKeyFile is the server key (empty uses the auto-"
+"generated key); autoGenPrivateKeyPath generates an RSA key when missing "
+"(default ./.autogen_ssh_key); authorizedKeysFile enables passwordless client "
+"authentication when set."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:217
+msgid "Saved Configuration Preview"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:904
+msgid "Select Backup File"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:901
+msgid ""
+"Select a backup file. The router will validate it before restoring the "
+"configuration."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:178
+msgid "Service status"
+msgstr ""
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:14
+msgid "Settings"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:434
+msgid ""
+"Shared secret that clients must present when connecting. Use a long random "
+"value. Mutually exclusive with \"Read token from file\"; without a token "
+"file the token appears in the generated TOML."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:297
+#: htdocs/luci-static/resources/view/frps-advanced.js:316
+msgid "Show all settings"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:296
+#: htdocs/luci-static/resources/view/frps-advanced.js:315
+msgid "Show common settings only"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:123
+msgid "Show differences only"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:123
+msgid "Show full configuration"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:62
+msgid "Special compatibility only."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:178
+msgid "Stopped"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:51
+msgid "Subdomain root domain"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:51
+msgid "Suffix for subdomain-based proxies; requires vhost HTTP/HTTPS ports."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:88
+msgid "TCP keepalive interval"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:86
+msgid "TCP multiplexing"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:439
+msgid ""
+"TCP multiplexing lets a client share one TCP connection for multiple proxies "
+"(enabled by default). Disable for maximum compatibility with unusual NAT or "
+"firewall setups; connection count increases when disabled."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:87
+msgid "TCP mux keepalive interval"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:49
+msgid "TCPMux HTTP CONNECT port"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:50
+msgid "TCPMux passthrough"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:436
+msgid "TLS Force"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:67
+msgid "TLS certificate name"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:66
+msgid "TLS client CA"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:64
+msgid "TLS server certificate"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:65
+msgid "TLS server private key"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:447
+msgid ""
+"TLS settings for control connections: certFile must be paired with keyFile; "
+"trustedCaFile enables client certificate verification and forces TLS (mutual "
+"TLS); serverName overrides the verified Server Name and is only needed in "
+"special certificate setups. Required when \"Only accept TLS control "
+"connections\" is enabled."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:85
+msgid "TLS verification"
+msgstr ""
+
+#: root/usr/share/luci/menu.d/luci-app-frps-advanced.json:40
+msgid "TOML Comparison"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:825
+msgid "This backup will contain %s configuration options."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:190
+msgid ""
+"This page is read-only and will not modify the configuration or reload FRPS."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:433
+msgid ""
+"Timeout for waiting for the HTTP response header from the target server, in "
+"seconds (default 60). Increase for slow upstream web servers."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:428
+msgid ""
+"To reduce privileges, select a different system user and ensure that user "
+"has permissions to read the configuration file, certificates, and keys."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:375
+msgid "Token"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:374
+msgid "Token suits most deployments; OIDC for unified identity environments."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:351
+msgid "Transport & Limits"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:82
+msgid "Troubleshooting only."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:97
+msgid "UDP packet size"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:431
+msgid ""
+"UDP port for KCP protocol used by clients that select KCP transport. Leave "
+"empty to disable KCP. Requires bindPort as well; KCP helps on lossy networks "
+"but is usually slower on stable ones."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:432
+msgid ""
+"UDP port for QUIC protocol used by clients that select QUIC transport. Leave "
+"empty to disable QUIC. Requires bindPort as well."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:44
+msgid "UDP port; leave empty to disable KCP."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:45
+msgid "UDP port; leave empty to disable QUIC."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:82
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:151
+msgid "Unable to load TOML comparison data."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-config.js:173
+msgid "Unable to read runtime configuration"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:214
+msgid "Unable to read service status"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:564
+#: htdocs/luci-static/resources/view/frps-advanced.js:568
+msgid "Unable to read version; refresh and retry"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:779
+msgid "Unable to validate backup on router:"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:98
+msgid ""
+"Unit: hours; default 168 (7 days). Only affects NAT hole punching scenarios."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:91
+#: htdocs/luci-static/resources/view/frps-advanced.js:92
+msgid "Unit: seconds."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:90
+msgid ""
+"Unit: seconds. A client without a heartbeat for longer than this value is "
+"considered disconnected (effective when TCPMux is disabled)."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:96
+msgid ""
+"Unit: seconds; default 10. Timeout waiting for the client response after a "
+"user connection is established."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:87
+msgid ""
+"Unit: seconds; default 30. TCP mux heartbeat interval; tune only when mux "
+"stability issues occur."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:47
+msgid "Unit: seconds; default 60."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:88
+msgid "Unit: seconds; default 7200. Negative disables keepalive."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:56
+msgid "Use a sufficiently long random token."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:36
+msgid "Use info for daily use; debug/trace for short-term troubleshooting."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:96
+msgid "User connection timeout"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:757
+msgid "Validating backup on router…"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced-plugins.js:86
+msgid ""
+"Verify the plugin HTTPS certificate; only meaningful when the plugin address "
+"uses HTTPS."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:46
+msgid "Vhost HTTP port"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:47
+msgid "Vhost HTTP timeout"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:48
+msgid "Vhost HTTPS port"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:440
+msgid ""
+"When TCPMux is enabled, the multiplexed connection mechanism maintains "
+"connection state, so this value does not take effect."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:437
+msgid ""
+"When enabled, frps will only accept control connections encrypted with TLS. "
+"Non-TLS clients are rejected. Default: off. Scenario: public networks or "
+"untrusted LAN environments. Risk: legacy clients without TLS support will be "
+"unable to connect. Requires TLS certificate and key to be configured."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:402
+msgid "debug"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:405
+msgid "error"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:34
+msgid "frps executable"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:403
+msgid "info"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:401
+msgid "trace"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/frps-advanced.js:404
+msgid "warn"
+msgstr ""

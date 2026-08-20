@@ -1,0 +1,1124 @@
+'use strict';
+
+import { readfile, stat } from 'fs';
+import { connect } from 'ubus';
+import { cursor } from 'uci';
+
+let ubus = connect(null);
+
+const CONFIG_FILE = '/var/etc/frps-advanced/frps.main.toml';
+const MAX_CONFIG_SIZE = 524288;
+const MAX_BACKUP_SIZE = 262144;
+const UCI_CONFIG = 'frps-advanced';
+
+const allowedMainKeys = {
+	'bindAddr': true,
+	'bindPort': true,
+	'proxyBindAddr': true,
+	'kcpBindPort': true,
+	'quicBindPort': true,
+	'vhostHTTPPort': true,
+	'vhostHTTPTimeout': true,
+	'vhostHTTPSPort': true,
+	'tcpmuxHTTPConnectPort': true,
+	'tcpmuxPassthrough': true,
+	'subDomainHost': true,
+	'custom404Page': true,
+
+	'auth__method': true,
+	'auth__token': true,
+	'auth__tokenSource__file__path': true,
+	'auth__additionalScopes': true,
+	'auth__oidc__issuer': true,
+	'auth__oidc__audience': true,
+	'auth__oidc__skipExpiryCheck': true,
+	'auth__oidc__skipIssuerCheck': true,
+
+	'transport__tls__force': true,
+	'transport__tls__certFile': true,
+	'transport__tls__keyFile': true,
+	'transport__tls__trustedCaFile': true,
+	'transport__tls__serverName': true,
+	'detailedErrorsToClient': true,
+
+	'webServer__addr': true,
+	'webServer__port': true,
+	'webServer__user': true,
+	'webServer__password': true,
+	'webServer__tls__certFile': true,
+	'webServer__tls__keyFile': true,
+	'webServer__tls__trustedCaFile': true,
+	'webServer__tls__serverName': true,
+	'webServer__assetsDir': true,
+	'enablePrometheus': true,
+	'webServer__pprofEnable': true,
+
+	'enable_logging': true,
+	'std_redirect': true,
+	'log__to': true,
+	'log__level': true,
+	'log__maxDays': true,
+	'log__disablePrintColor': true,
+
+	'transport__tcpMux': true,
+	'transport__tcpMuxKeepaliveInterval': true,
+	'transport__tcpKeepalive': true,
+	'transport__maxPoolCount': true,
+	'transport__heartbeatTimeout': true,
+	'transport__quic__keepalivePeriod': true,
+	'transport__quic__maxIdleTimeout': true,
+	'transport__quic__maxIncomingStreams': true,
+
+	'maxPortsPerClient': true,
+	'allowPorts': true,
+	'userConnTimeout': true,
+	'udpPacketSize': true,
+	'natholeAnalysisDataReserveHours': true,
+
+	'sshTunnelGateway__bindPort': true,
+	'sshTunnelGateway__privateKeyFile': true,
+	'sshTunnelGateway__autoGenPrivateKeyPath': true,
+	'sshTunnelGateway__authorizedKeysFile': true,
+
+	'extra_setting': true
+};
+
+/* Accepted from legacy backups for compatibility, but never restored/exported.
+ * ImmortalWrt FRP 0.66.0 sends console stdout/stderr to procd/logd instead. */
+const deprecatedLoggingKeys = {
+	enable_logging: true,
+	std_redirect: true,
+	log__to: true,
+	log__maxDays: true,
+	log__disablePrintColor: true
+};
+
+const allowedPluginKeys = {
+	'name': true,
+	'addr': true,
+	'path': true,
+	'ops': true,
+	'tlsVerify': true
+};
+
+function is_forbidden_key(key) {
+	return key == '__proto__' ||
+		key == 'constructor' ||
+		key == 'prototype';
+}
+
+function validate_sections(sections) {
+	if (!sections || type(sections) != 'object' || length(sections) == 0) {
+		return {
+			ok: false,
+			code: 'INVALID_VALUES',
+			stage: 'validate-sections',
+			message: 'sections missing or empty'
+		};
+	}
+
+	if (!sections.main ||
+	    type(sections.main) != 'object' ||
+	    sections.main['.type'] != 'frps') {
+		return {
+			ok: false,
+			code: 'INVALID_VALUES',
+			stage: 'validate-main',
+			message: 'main section is missing or its type is not frps'
+		};
+	}
+
+	let sectionCount = 0;
+	let optionCount = 0;
+
+	for (let sn in sections) {
+		if (substr(sn, 0, 1) == '.')
+			continue;
+
+		if (is_forbidden_key(sn)) {
+			return {
+				ok: false,
+				code: 'INVALID_VALUES',
+				stage: 'validate-section',
+				message: 'forbidden section name: ' + sn
+			};
+		}
+
+		sectionCount++;
+
+		let section = sections[sn];
+
+		if (!section || type(section) != 'object') {
+			return {
+				ok: false,
+				code: 'INVALID_VALUES',
+				stage: 'validate-section',
+				message: 'section ' + sn + ' is not an object'
+			};
+		}
+
+		let sectionType = section['.type'];
+		let allowed = null;
+
+		if (sn == 'main') {
+			if (sectionType != 'frps') {
+				return {
+					ok: false,
+					code: 'INVALID_VALUES',
+					stage: 'validate-section',
+					message: 'main section type must be frps'
+				};
+			}
+
+			allowed = allowedMainKeys;
+		}
+		else {
+			if (sectionType != 'http_plugin') {
+				return {
+					ok: false,
+					code: 'UNKNOWN_SECTION',
+					stage: 'validate-section',
+					message: 'unsupported section type: ' +
+						(sectionType || 'none') +
+						' in section ' + sn
+				};
+			}
+
+			allowed = allowedPluginKeys;
+		}
+
+		for (let key in section) {
+			if (substr(key, 0, 1) == '.')
+				continue;
+
+			if (is_forbidden_key(key)) {
+				return {
+					ok: false,
+					code: 'INVALID_VALUES',
+					stage: 'validate-option',
+					message: 'forbidden option name: ' + sn + '.' + key
+				};
+			}
+
+			optionCount++;
+
+			if (!allowed[key]) {
+				return {
+					ok: false,
+					code: 'UNKNOWN_OPTION',
+					stage: 'validate-option',
+					message: 'unknown option: ' + sn + '.' + key
+				};
+			}
+
+			let value = section[key];
+
+			if (type(value) == 'array') {
+				for (let item in value) {
+					if (type(item) != 'string') {
+						return {
+							ok: false,
+							code: 'VALIDATION_FAILED',
+							stage: 'validate-array',
+							message: sn + '.' + key +
+								' must contain strings only'
+						};
+					}
+
+					if (length(item) > 4096) {
+						return {
+							ok: false,
+							code: 'VALIDATION_FAILED',
+							stage: 'validate-array',
+							message: sn + '.' + key +
+								' contains an oversized value'
+						};
+					}
+				}
+			}
+			else if (type(value) == 'string') {
+				if (length(value) > 4096) {
+					return {
+						ok: false,
+						code: 'VALIDATION_FAILED',
+						stage: 'validate-value',
+						message: sn + '.' + key +
+							' value exceeds 4096 bytes'
+					};
+				}
+			}
+			else {
+				return {
+					ok: false,
+					code: 'VALIDATION_FAILED',
+					stage: 'validate-value',
+					message: sn + '.' + key +
+						' must be a string or string array'
+				};
+			}
+		}
+	}
+
+	return {
+		ok: true,
+		section_count: sectionCount,
+		option_count: optionCount
+	};
+}
+
+function apply_sections(config, sections) {
+	let c = cursor();
+	let current = c.get_all(config);
+
+	if (!current || type(current) != 'object') {
+		return {
+			ok: false,
+			code: 'UCI_READ_FAILED',
+			stage: 'read-current',
+			message: 'unable to read current UCI configuration'
+		};
+	}
+
+	let preservedEnabled = current.main && type(current.main) == 'object'
+		? current.main.enabled
+		: null;
+
+	let wantedSections = {};
+
+	for (let sn in sections) {
+		if (substr(sn, 0, 1) == '.')
+			continue;
+
+		wantedSections[sn] = true;
+	}
+
+	for (let sn in current) {
+		if (substr(sn, 0, 1) == '.')
+			continue;
+
+		if (!wantedSections[sn]) {
+			if (c.delete(config, sn) !== true) {
+				return {
+					ok: false,
+					code: 'UCI_DELETE_FAILED',
+					stage: 'delete-section',
+					message: 'unable to delete section: ' + sn
+				};
+			}
+		}
+	}
+
+	for (let sn in sections) {
+		if (substr(sn, 0, 1) == '.')
+			continue;
+
+		let source = sections[sn];
+		let sectionType = source['.type'];
+		let existing = current[sn];
+
+		if (!existing || existing['.type'] != sectionType) {
+			if (existing && c.delete(config, sn) !== true) {
+				return {
+					ok: false,
+					code: 'UCI_DELETE_FAILED',
+					stage: 'replace-section',
+					message: 'unable to replace section: ' + sn
+				};
+			}
+
+			if (c.set(config, sn, sectionType) !== true) {
+				return {
+					ok: false,
+					code: 'UCI_CREATE_FAILED',
+					stage: 'create-section',
+					message: 'unable to create section: ' + sn
+				};
+			}
+
+			existing = null;
+		}
+
+		let sourceKeys = {};
+
+		for (let key in source) {
+			if (substr(key, 0, 1) != '.')
+				sourceKeys[key] = true;
+		}
+
+		if (sn == 'main') {
+			sourceKeys.enabled = true;
+			sourceKeys.respawn = true;
+			sourceKeys.client_file = true;
+			sourceKeys.run_user = true;
+		}
+
+		if (existing) {
+			for (let key in existing) {
+				if (substr(key, 0, 1) == '.')
+					continue;
+
+				if (!sourceKeys[key] &&
+				    c.delete(config, sn, key) !== true) {
+					return {
+						ok: false,
+						code: 'UCI_DELETE_FAILED',
+						stage: 'delete-option',
+						message: 'unable to delete option: ' +
+							sn + '.' + key
+					};
+				}
+			}
+		}
+
+		for (let key in source) {
+			if (substr(key, 0, 1) == '.')
+				continue;
+
+			if (c.set(config, sn, key, source[key]) !== true) {
+				return {
+					ok: false,
+					code: 'UCI_SET_FAILED',
+					stage: 'set-option',
+					message: 'unable to set option: ' +
+						sn + '.' + key
+				};
+			}
+		}
+
+		if (sn == 'main' && preservedEnabled != null &&
+		    c.set(config, sn, 'enabled', preservedEnabled) !== true) {
+			return {
+				ok: false,
+				code: 'UCI_SET_FAILED',
+				stage: 'preserve-enabled',
+				message: 'unable to preserve option: main.enabled'
+			};
+		}
+	}
+
+	if (c.commit(config) !== true) {
+		return {
+			ok: false,
+			code: 'UCI_COMMIT_FAILED',
+			stage: 'commit',
+			message: 'unable to commit UCI configuration'
+		};
+	}
+
+	return { ok: true };
+}
+
+function read_service_state() {
+	let response = null;
+
+	try {
+		response = ubus.call(
+			'service',
+			'list',
+			{ name: 'frps-advanced' }
+		);
+	}
+	catch (e) {
+		return 'unknown';
+	}
+
+	if (!response || type(response) != 'object')
+		return 'unknown';
+
+	let service = response['frps-advanced'];
+
+	if (!service)
+		return 'stopped';
+
+	if (type(service) != 'object')
+		return 'unknown';
+
+	let instances = service.instances;
+
+	if (!instances)
+		return 'stopped';
+
+	if (type(instances) != 'object')
+		return 'unknown';
+
+	for (let instanceName in instances) {
+		if (instances[instanceName] &&
+		    instances[instanceName].running === true)
+			return 'running';
+	}
+
+	return 'stopped';
+}
+
+function service_is_running() {
+	return read_service_state() == 'running';
+}
+
+function value_equal(a, b) {
+if (type(a) != type(b))
+return false;
+
+if (type(a) == 'string')
+return a == b;
+
+if (type(a) == 'array') {
+if (length(a) != length(b))
+return false;
+
+for (let i = 0; i < length(a); i++) {
+if (type(a[i]) != 'string' || a[i] != b[i])
+return false;
+}
+
+return true;
+}
+
+return false;
+}
+function compare_sections(current, wanted) {
+let result = {
+added_sections: [],
+removed_sections: [],
+added_options: [],
+changed_options: [],
+removed_options: [],
+added_section_count: 0,
+removed_section_count: 0,
+added_option_count: 0,
+changed_option_count: 0,
+removed_option_count: 0,
+truncated: false
+};
+
+let MAX = 50;
+
+for (let sn in wanted) {
+if (substr(sn, 0, 1) == '.')
+continue;
+
+if (!current[sn]) {
+result.added_section_count++;
+if (length(result.added_sections) < MAX)
+push(result.added_sections, sn);
+}
+}
+
+for (let sn in current) {
+if (substr(sn, 0, 1) == '.')
+continue;
+
+if (!wanted[sn]) {
+result.removed_section_count++;
+if (length(result.removed_sections) < MAX)
+push(result.removed_sections, sn);
+}
+}
+
+for (let sn in wanted) {
+if (substr(sn, 0, 1) == '.')
+continue;
+
+let ws = wanted[sn];
+let cs = current[sn];
+
+if (!cs || type(cs) != 'object') {
+for (let key in ws) {
+if (substr(key, 0, 1) == '.')
+continue;
+result.added_option_count++;
+if (length(result.added_options) < MAX)
+push(result.added_options, sn + '.' + key);
+}
+continue;
+}
+
+let wt = ws['.type'];
+let ct = cs['.type'];
+
+if (wt != ct) {
+result.added_section_count++;
+result.removed_section_count++;
+if (length(result.added_sections) < MAX)
+push(result.added_sections, sn);
+if (length(result.removed_sections) < MAX)
+push(result.removed_sections, sn);
+continue;
+}
+
+let seen = {};
+
+for (let key in ws) {
+if (substr(key, 0, 1) == '.')
+continue;
+
+seen[key] = true;
+
+if (!(key in cs)) {
+result.added_option_count++;
+if (length(result.added_options) < MAX)
+push(result.added_options, sn + '.' + key);
+} else if (!value_equal(ws[key], cs[key])) {
+result.changed_option_count++;
+if (length(result.changed_options) < MAX)
+push(result.changed_options, sn + '.' + key);
+}
+}
+
+for (let key in cs) {
+if (substr(key, 0, 1) == '.')
+continue;
+
+if (!seen[key]) {
+result.removed_option_count++;
+if (length(result.removed_options) < MAX)
+push(result.removed_options, sn + '.' + key);
+}
+}
+}
+
+if (result.added_section_count > MAX ||
+    result.removed_section_count > MAX ||
+    result.added_option_count > MAX ||
+    result.changed_option_count > MAX ||
+    result.removed_option_count > MAX)
+result.truncated = true;
+
+return result;
+}
+function normalize_backup_payload(incoming) {
+	for (let key in incoming) {
+		if (key != 'format' && key != 'schemaVersion' &&
+		    key != 'config' && key != 'httpPlugins')
+			return { ok: false, code: 'INVALID_FORMAT', stage: 'validate-schema', message: 'unsupported backup field: ' + key };
+	}
+
+	let config = incoming.config;
+
+	if (!config || type(config) != 'object')
+		return { ok: false, code: 'INVALID_VALUES', stage: 'validate-config', message: 'config missing or invalid' };
+
+	let sections = { main: { '.type': 'frps' } };
+
+	for (let key in config) {
+		if (key == 'respawn' || key == 'client_file' || key == 'run_user' || deprecatedLoggingKeys[key])
+			continue;
+
+		if (substr(key, 0, 1) == '.' || key == 'enabled')
+			return { ok: false, code: 'INVALID_VALUES', stage: 'validate-config', message: 'unsupported config field: ' + key };
+
+		sections.main[key] = config[key];
+	}
+
+	if ('httpPlugins' in incoming) {
+		let plugins = incoming.httpPlugins;
+
+		if (type(plugins) != 'array')
+			return { ok: false, code: 'INVALID_VALUES', stage: 'validate-plugins', message: 'httpPlugins must be an array' };
+
+		for (let i = 0; i < length(plugins); i++) {
+			let plugin = plugins[i];
+
+			if (!plugin || type(plugin) != 'object')
+				return { ok: false, code: 'INVALID_VALUES', stage: 'validate-plugin', message: 'httpPlugins entry must be an object' };
+
+			let section = { '.type': 'http_plugin' };
+
+			for (let key in plugin) {
+				if (substr(key, 0, 1) == '.')
+					return { ok: false, code: 'INVALID_VALUES', stage: 'validate-plugin', message: 'unsupported httpPlugins field: ' + key };
+
+				section[key] = plugin[key];
+			}
+
+			sections['http_plugin_' + (i + 1)] = section;
+		}
+	}
+
+	return { ok: true, sections: sections };
+}
+
+function normalize_backup_compare_sections(input) {
+	let normalized = {};
+	let pluginIndex = 0;
+
+	for (let sn in input) {
+		if (substr(sn, 0, 1) == '.')
+			continue;
+
+		let section = input[sn];
+
+		if (sn == 'main' && section && type(section) == 'object') {
+			let main = { '.type': 'frps' };
+
+			for (let key in section) {
+				if (substr(key, 0, 1) == '.' ||
+				    key == 'enabled' || key == 'respawn' ||
+				    key == 'client_file' || key == 'run_user' ||
+				    deprecatedLoggingKeys[key])
+					continue;
+
+				main[key] = section[key];
+			}
+
+			normalized.main = main;
+		}
+		else if (section && type(section) == 'object' && section['.type'] == 'http_plugin') {
+			pluginIndex++;
+			normalized['http_plugin_' + pluginIndex] = section;
+		}
+		else {
+			normalized[sn] = section;
+		}
+	}
+
+	return normalized;
+}
+
+function parse_and_validate_backup(raw) {
+if (type(raw) != 'string' || length(raw) == 0)
+return { ok: false, code: 'INVALID_ARGUMENT', stage: 'read-argument', message: 'config must be a non-empty string' };
+
+if (length(raw) > MAX_BACKUP_SIZE)
+return { ok: false, code: 'FILE_TOO_LARGE', stage: 'read-argument', message: 'backup data exceeds 256KB' };
+
+let incoming = null;
+
+try {
+incoming = json(raw);
+}
+catch (e) {
+return { ok: false, code: 'INVALID_JSON', stage: 'parse-json', message: 'backup is not valid JSON' };
+}
+
+if (!incoming || type(incoming) != 'object')
+return { ok: false, code: 'INVALID_FORMAT', stage: 'parse-json', message: 'JSON root must be an object' };
+
+if (incoming.format != 'frps-advanced-backup')
+return { ok: false, code: 'INVALID_FORMAT', stage: 'validate-format', message: 'unsupported backup format: ' + (incoming.format || 'none') };
+
+	if (incoming.schemaVersion != 1)
+return { ok: false, code: 'INVALID_FORMAT', stage: 'validate-format', message: 'unsupported schema version: ' + (incoming.schemaVersion || 'none') };
+
+	let normalized = normalize_backup_payload(incoming);
+
+	if (!normalized.ok)
+		return normalized;
+
+	let sections = normalized.sections;
+
+let validation = validate_sections(sections);
+
+if (!validation.ok)
+return validation;
+
+return {
+ok: true,
+sections: sections,
+section_count: validation.section_count,
+option_count: validation.option_count
+};
+}
+
+function normalize_config_for_compare(content) {
+	if (type(content) != 'string')
+		return '';
+
+	let sourceLines = split(content, '\n');
+	let normalizedLines = [];
+
+	for (let i = 0; i < length(sourceLines); i++) {
+		let line = sourceLines[i];
+
+		if (length(line) > 0 &&
+		    substr(line, length(line) - 1, 1) == '\r')
+			line = substr(line, 0, length(line) - 1);
+		push(normalizedLines, line);
+	}
+
+	while (length(normalizedLines) > 0 &&
+	       normalizedLines[length(normalizedLines) - 1] == '')
+		normalizedLines = slice(normalizedLines, 0, length(normalizedLines) - 1);
+
+	return join('\n', normalizedLines) + '\n';
+}
+
+function read_runtime_config() {
+	try {
+		let fileStat = stat(CONFIG_FILE);
+
+		if (!fileStat) {
+			return {
+				exists: false,
+				content: '',
+				code: 'NOT_FOUND',
+				message: 'runtime configuration file not found'
+			};
+		}
+
+		if (fileStat.size > MAX_CONFIG_SIZE) {
+			return {
+				exists: false,
+				content: '',
+				code: 'FILE_TOO_LARGE',
+				message: 'runtime configuration exceeds 512 KiB'
+			};
+		}
+
+		let content = readfile(CONFIG_FILE) || '';
+
+		return {
+			exists: content != '',
+			content: content,
+			code: content != '' ? 'OK' : 'EMPTY',
+			message: content != '' ? '' : 'runtime configuration file is empty'
+		};
+	}
+	catch (e) {
+		return {
+			exists: false,
+			content: '',
+			code: 'READ_FAILED',
+			message: 'unable to read runtime configuration'
+		};
+	}
+}
+
+return {
+	'luci.frps-advanced': {
+validate_backup: {
+args: { config: '' },
+call: function(request) {
+let stage = 'start';
+try {
+let raw = request && request.args ? request.args.config : null;
+let validation = parse_and_validate_backup(raw);
+if (!validation.ok)
+return validation;
+
+stage = 'read-current';
+let c = cursor();
+let current = c.get_all(UCI_CONFIG);
+if (!current || type(current) != 'object')
+return { ok: false, code: 'UCI_READ_FAILED', stage: stage, message: 'unable to read current configuration' };
+
+stage = 'compare';
+current = normalize_backup_compare_sections(current);
+let wanted = normalize_backup_compare_sections(validation.sections);
+
+let diff = compare_sections(current, wanted);
+
+return {
+ok: true, code: 'OK', stage: 'complete', message: 'backup validation passed',
+section_count: validation.section_count,
+option_count: validation.option_count,
+diff: diff
+};
+} catch (e) {
+return { ok: false, code: 'INTERNAL_ERROR', stage: stage, message: '' + e };
+}
+}
+},
+		restore_config: {
+			args: { config: '' },
+			call: function(request) {
+				let stage = 'start';
+
+				try {
+					stage = 'read-service-state';
+					let serviceState = read_service_state();
+
+					stage = 'read-argument';
+let raw = request && request.args ? request.args.config : null;
+let validation = parse_and_validate_backup(raw);
+if (!validation.ok)
+return validation;
+let sections = validation.sections;
+					stage = 'apply';
+
+					let applied = apply_sections(UCI_CONFIG, sections);
+
+					if (!applied.ok)
+						return applied;
+
+					let success = {
+						ok: true,
+						code: 'OK',
+						stage: 'complete',
+						message: '',
+						restored_sections: validation.section_count,
+						restored_options: validation.option_count,
+						config_restored: true,
+						service_state: serviceState,
+						runtime_synchronized: false
+					};
+
+					if (serviceState == 'stopped') {
+						success.message = 'Configuration restored successfully, FRPS is currently not running.';
+						return success;
+					}
+
+					if (serviceState == 'unknown') {
+						success.message = 'Configuration restored successfully, FRPS running state is unknown.';
+						return success;
+					}
+
+					stage = 'restart-service';
+
+					return ubus.defer(
+						'file',
+						'exec',
+						{
+							command: '/etc/init.d/frps-advanced',
+							params: [ 'restart' ],
+							env: {}
+						},
+						function(code, response) {
+							let responseOk = code == 0 && response &&
+								type(response) == 'object' && response.code == 0;
+							let currentServiceState = read_service_state();
+
+							if (responseOk && currentServiceState == 'running') {
+								success.message = 'Configuration restored successfully, FRPS has been reloaded.';
+								success.service_state = 'running';
+								success.runtime_synchronized = true;
+								request.reply(success);
+								return;
+							}
+
+							let stderr = response && type(response) == 'object'
+								? (response.stderr || '')
+								: '';
+
+							if (length(stderr) > 4096)
+								stderr = substr(stderr, length(stderr) - 4096);
+
+							if (stderr == '') {
+								if (currentServiceState == 'unknown')
+									stderr = 'unable to read FRPS service state after restart';
+								else if (currentServiceState == 'stopped')
+									stderr = 'FRPS is not running after restart';
+								else
+									stderr = 'FRPS restart command failed';
+							}
+
+							request.reply({
+								ok: false,
+								code: 'SERVICE_RESTART_FAILED',
+								stage: 'restart-service',
+								message: stderr,
+								config_restored: true,
+								service_state: currentServiceState,
+								runtime_synchronized: false
+							});
+						}
+					);
+				}
+				catch (e) {
+					return {
+						ok: false,
+						code: 'INTERNAL_ERROR',
+						stage: stage,
+						message: '' + e
+					};
+				}
+			}
+		},
+
+		get_config: {
+			call: function() {
+				let runtime = read_runtime_config();
+
+				if (runtime.code == 'FILE_TOO_LARGE')
+					return { result: 'Config file too large.' };
+
+				if (!runtime.exists)
+					return { result: 'Configuration file not found.' };
+
+				return { result: runtime.content };
+			}
+		},
+
+		get_config_compare: {
+			call: function(request) {
+				let runtime = read_runtime_config();
+				let serviceRunning = service_is_running();
+
+				return ubus.defer(
+					'file',
+					'exec',
+					{
+						command: '/etc/init.d/frps-advanced',
+						params: [ 'preview_config' ],
+						env: {}
+					},
+					function(code, response) {
+						let candidate = {
+							ok: false,
+							exists: false,
+							content: '',
+							code: 'GENERATION_FAILED',
+							message: 'unable to generate candidate configuration'
+						};
+
+						if (code == 0 && response && type(response) == 'object') {
+							let stdout = response.stdout || '';
+							let stderr = response.stderr || '';
+
+							if (length(stderr) > 4096)
+								stderr = substr(stderr, length(stderr) - 4096);
+
+							if (response.code == 0 && stdout != '' &&
+							    length(stdout) <= MAX_CONFIG_SIZE) {
+								candidate = {
+									ok: true,
+									exists: true,
+									generated: true,
+									content: stdout,
+									code: 'OK',
+									message: ''
+								};
+							}
+							else if (response.code == 0 && stdout == '') {
+								candidate.code = 'EMPTY';
+								candidate.message = 'candidate configuration is empty';
+							}
+							else if (length(stdout) > MAX_CONFIG_SIZE) {
+								candidate.code = 'FILE_TOO_LARGE';
+								candidate.message = 'candidate configuration exceeds 512 KiB';
+							}
+							else {
+								if (stdout != '') {
+									candidate.exists = true;
+									candidate.content = stdout;
+								}
+								candidate.code = 'GENERATION_FAILED';
+								candidate.message = stderr != ''
+									? stderr
+									: 'candidate configuration generation failed';
+							}
+						}
+
+						let equal = null;
+
+						if (candidate.ok && candidate.exists && runtime.exists) {
+							equal = normalize_config_for_compare(candidate.content) ==
+								normalize_config_for_compare(runtime.content);
+						}
+
+						request.reply({
+							ok: true,
+							service_running: serviceRunning,
+							candidate: candidate,
+							runtime: {
+								exists: runtime.exists,
+								content: runtime.content,
+								path: CONFIG_FILE,
+								code: runtime.code,
+								message: runtime.message
+							},
+							equal: equal,
+							comparison: {
+								normalization: 'line-endings,final-newline'
+							}
+						});
+					}
+				);
+			}
+		},
+
+		get_version: {
+			call: function(request) {
+				let path = null;
+
+				try {
+					let c = cursor();
+					path = c.get(
+						UCI_CONFIG,
+						'main',
+						'client_file'
+					);
+				}
+				catch (e) {}
+
+				if (!path || length(path) == 0)
+					path = '/usr/bin/frps';
+
+				if (type(path) != 'string' ||
+				    length(path) == 0 ||
+				    length(path) > 1024) {
+					return {
+						status: 'error',
+						code: 'invalid_path'
+					};
+				}
+
+				if (!match(path, /^\/[A-Za-z0-9_.\/-]+$/)) {
+					return {
+						status: 'error',
+						code: 'invalid_path'
+					};
+				}
+
+				let fileStat = stat(path);
+
+				if (!fileStat || (fileStat.mode & 73) == 0) {
+					return {
+						status: 'error',
+						code: 'not_executable'
+					};
+				}
+
+				return ubus.defer(
+					'file',
+					'exec',
+					{
+						command: path,
+						params: [ '--version' ],
+						env: {}
+					},
+					function(code, response) {
+						if (code != 0 ||
+						    !response ||
+						    type(response) != 'object' ||
+						    response.code != 0) {
+							request.reply({
+								status: 'error',
+								code: 'exec_failed'
+							});
+							return;
+						}
+
+						let output = substr(
+							response.stdout || '',
+							0,
+							128
+						);
+
+						let versionMatch = match(
+							output,
+							/v?[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?/
+						);
+
+						if (!versionMatch || !versionMatch[0]) {
+							request.reply({
+								status: 'error',
+								code: 'unparseable'
+							});
+							return;
+						}
+
+						let version = versionMatch[0];
+
+						if (match(version, /^v/))
+							version = substr(version, 1);
+
+						request.reply({
+							status: 'ok',
+							version: version
+						});
+					}
+				);
+			}
+		}
+	}
+};

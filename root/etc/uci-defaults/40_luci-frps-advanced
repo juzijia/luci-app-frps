@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Clean up obsolete state and logging options from earlier package revisions.
+# Remove the marker used by r1/r2; it is no longer needed and consumed flash.
+rm -f /etc/.frps-advanced-migrated
+
+# FRP 0.66.0-style logging uses console stdout/stderr -> procd -> logd.
+# Remove obsolete private file-log options while preserving log__level.
+uci -q delete frps-advanced.main.enable_logging
+uci -q delete frps-advanced.main.std_redirect
+uci -q delete frps-advanced.main.log__to
+uci -q delete frps-advanced.main.log__maxDays
+uci -q delete frps-advanced.main.log__disablePrintColor
+uci -q commit frps-advanced
+
+rm -f /tmp/luci-indexcache.*
+rm -rf /tmp/luci-modulecache/
+exit 0

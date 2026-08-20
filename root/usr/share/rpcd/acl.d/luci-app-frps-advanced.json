@@ -1,0 +1,22 @@
+{
+	"luci-app-frps-advanced": {
+		"description": "Grant access to LuCI app frps-advanced",
+		"read": {
+			"file": {
+				"/etc/passwd": [ "read" ]
+			},
+			"ubus": {
+				"service": [ "list" ],
+				"log": [ "read" ],
+				"luci.frps-advanced": [ "get_version", "get_config", "get_config_compare", "validate_backup" ]
+			},
+			"uci": [ "frps-advanced" ]
+		},
+		"write": {
+			"ubus": {
+				"luci.frps-advanced": [ "restore_config" ]
+			},
+			"uci": [ "frps-advanced" ]
+		}
+	}
+}
