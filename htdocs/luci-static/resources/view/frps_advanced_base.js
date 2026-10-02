@@ -31,7 +31,7 @@ const BASIC_FIELDS = new Set([
 
 const runConf = [
 	[form.Flag, 'enabled', _('Enable service'), null, {default: '0', optional: false, rmempty: false, forcewrite: true}],
-	[form.Value, 'client_file', _('frps executable'), _('Path to the frps binary file'), {datatype: 'file', default: '/usr/bin/frps'}],
+	[form.Value, 'client_file', _('frps executable'), _('Only the system-installed core is supported.'), {datatype: 'file', default: '/usr/bin/frps'}],
 	[widgets.UserSelect, 'run_user', _('Run daemon as user'), _('Default: root'), {}],
 	[form.ListValue, 'log__level', _('Log level'), _('Use info for daily use; debug/trace for short-term troubleshooting.'), {default: 'info', optional: false, rmempty: false}],
 	[form.Flag, 'respawn', _('Respawn when crashed'), null, {default: '1'}],
@@ -354,6 +354,13 @@ return view.extend({
 		defTabOpts(s, 'run', runConf, {optional: true});
 		// Customize run_user: default root, no empty option
 		for (var _ri = 0; _ri < s.children.length; _ri++) {
+			if (s.children[_ri].option === 'client_file') {
+				s.children[_ri].optional = false;
+				s.children[_ri].rmempty = false;
+				s.children[_ri].validate = function(sectionId, value) {
+					return value === this.default || _('Only the system-installed core is supported.');
+				};
+			}
 			if (s.children[_ri].option === 'run_user') {
 				s.children[_ri].default = 'root';
 				s.children[_ri].rmempty = false;

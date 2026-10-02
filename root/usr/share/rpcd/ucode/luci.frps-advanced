@@ -10,6 +10,7 @@ const CONFIG_FILE = '/var/etc/frps-advanced/frps.main.toml';
 const MAX_CONFIG_SIZE = 524288;
 const MAX_BACKUP_SIZE = 262144;
 const UCI_CONFIG = 'frps-advanced';
+const DEFAULT_CLIENT_FILE = '/usr/bin/frps';
 
 const allowedMainKeys = {
 	'bindAddr': true,
@@ -924,20 +925,6 @@ let sections = validation.sections;
 			}
 		},
 
-		get_config: {
-			call: function() {
-				let runtime = read_runtime_config();
-
-				if (runtime.code == 'FILE_TOO_LARGE')
-					return { result: 'Config file too large.' };
-
-				if (!runtime.exists)
-					return { result: 'Configuration file not found.' };
-
-				return { result: runtime.content };
-			}
-		},
-
 		get_config_compare: {
 			call: function(request) {
 				let runtime = read_runtime_config();
@@ -1040,26 +1027,17 @@ let sections = validation.sections;
 				}
 				catch (e) {}
 
-				if (!path || length(path) == 0)
-					path = '/usr/bin/frps';
+				if (path == null || (type(path) == 'string' && path == ''))
+					path = DEFAULT_CLIENT_FILE;
 
-				if (type(path) != 'string' ||
-				    length(path) == 0 ||
-				    length(path) > 1024) {
+				if (type(path) != 'string' || path != DEFAULT_CLIENT_FILE) {
 					return {
 						status: 'error',
-						code: 'invalid_path'
+						code: 'unsupported_path'
 					};
 				}
 
-				if (!match(path, /^\/[A-Za-z0-9_.\/-]+$/)) {
-					return {
-						status: 'error',
-						code: 'invalid_path'
-					};
-				}
-
-				let fileStat = stat(path);
+				let fileStat = stat(DEFAULT_CLIENT_FILE);
 
 				if (!fileStat || (fileStat.mode & 73) == 0) {
 					return {
@@ -1072,7 +1050,7 @@ let sections = validation.sections;
 					'file',
 					'exec',
 					{
-						command: path,
+						command: DEFAULT_CLIENT_FILE,
 						params: [ '--version' ],
 						env: {}
 					},

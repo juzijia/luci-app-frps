@@ -8,15 +8,14 @@
 			"ubus": {
 				"service": [ "list" ],
 				"log": [ "read" ],
-				"luci.frps-advanced": [ "get_version", "get_config", "get_config_compare", "validate_backup" ]
-			},
-			"uci": [ "frps-advanced" ]
+				"luci.frps-advanced": [ "validate_backup" ]
+			}
 		},
 		"write": {
 			"ubus": {
-				"luci.frps-advanced": [ "restore_config" ]
+				"luci.frps-advanced": [ "restore_config", "get_version", "get_config_compare" ]
 			},
-			"uci": [ "frps-advanced" ]
+			"uci": { "frps-advanced": [ "read", "write" ] }
 		}
 	}
 }
