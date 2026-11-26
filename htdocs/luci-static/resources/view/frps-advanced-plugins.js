@@ -87,15 +87,26 @@ return view.extend({
 		o.enabled = 'true';
 		o.disabled = 'false';
 
+		let activeModalSectionId = null;
+		function getModalSectionId(modalMap) {
+			if (modalMap && typeof modalMap.section === 'string')
+				return modalMap.section;
+			if (modalMap && Array.isArray(modalMap.children) && modalMap.children[0] && typeof modalMap.children[0].section === 'string')
+				return modalMap.children[0].section;
+			return activeModalSectionId;
+		}
+
 		const renderPluginModal = pluginGrid.renderMoreOptionsModal;
 		pluginGrid.renderMoreOptionsModal = function(sectionId) {
+			activeModalSectionId = sectionId;
 			pluginRequiredArmed.delete(sectionId);
 			return renderPluginModal.apply(this, arguments);
 		};
 
 		const cancelPluginModal = pluginGrid.handleModalCancel;
 		pluginGrid.handleModalCancel = function(modalMap) {
-			const sectionId = modalMap && modalMap.section;
+			const sectionId = getModalSectionId(modalMap);
+			activeModalSectionId = null;
 			if (sectionId)
 				pluginRequiredArmed.delete(sectionId);
 			return cancelPluginModal.apply(this, arguments);
@@ -103,7 +114,7 @@ return view.extend({
 
 		const savePluginModal = pluginGrid.handleModalSave;
 		pluginGrid.handleModalSave = function(modalMap) {
-			const sectionId = modalMap && modalMap.section;
+			const sectionId = getModalSectionId(modalMap);
 			if (sectionId)
 				pluginRequiredArmed.set(sectionId, true);
 			return Promise.resolve(savePluginModal.apply(this, arguments)).then(function(result) {

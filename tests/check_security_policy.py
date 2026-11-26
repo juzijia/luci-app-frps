@@ -6,7 +6,7 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 init = (root / 'root/etc/init.d/frps-advanced').read_text(encoding='utf-8')
-rpc = (root / 'root/usr/share/rpcd/ucode/luci.frps-advanced').read_text(encoding='utf-8')
+rpc = (root / 'root/usr/libexec/rpcd/luci.frps-advanced').read_text(encoding='utf-8')
 view = (root / 'htdocs/luci-static/resources/view/frps_advanced_base.js').read_text(encoding='utf-8')
 core = re.search(r'^DEFAULT_CLIENT_FILE="([^"]+)"$', init, re.M).group(1)
 assert core == '/usr/bin/frps'

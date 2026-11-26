@@ -3,9 +3,9 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=Advanced LuCI support for Frp server (JS v2)
-LUCI_DEPENDS:=+luci-base +rpcd-mod-ucode +ucode-mod-fs +ucode-mod-ubus +ucode-mod-uci
+LUCI_DEPENDS:=+luci-base +ucode +ucode-mod-fs +ucode-mod-uci
 LUCI_PKGARCH:=all
-PKG_VERSION:=1.0.1
+PKG_VERSION:=1.0.2
 PKG_RELEASE:=1
 PKG_PO_VERSION:=$(PKG_VERSION)-r$(PKG_RELEASE)
 PKG_LICENSE:=MIT

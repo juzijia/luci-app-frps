@@ -15,4 +15,5 @@ uci -q commit frps-advanced
 
 rm -f /tmp/luci-indexcache.*
 rm -rf /tmp/luci-modulecache/
+[ -f /usr/lib/lua/luci/i18n/base.zh-cn.lmo ] && touch /usr/lib/lua/luci/i18n/base.zh-cn.lmo
 exit 0

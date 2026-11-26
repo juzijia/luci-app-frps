@@ -1,10 +1,8 @@
+#!/usr/bin/ucode
 'use strict';
 
-import { readfile, stat } from 'fs';
-import { connect } from 'ubus';
+import { popen, readfile, readlink, stat, stdin, unlink } from 'fs';
 import { cursor } from 'uci';
-
-let ubus = connect(null);
 
 const CONFIG_FILE = '/var/etc/frps-advanced/frps.main.toml';
 const MAX_CONFIG_SIZE = 524288;
@@ -409,15 +407,66 @@ function apply_sections(config, sections) {
 	return { ok: true };
 }
 
+function exec_command(spec) {
+	if (!spec || type(spec) != 'object')
+		return null;
+
+	let cmd = spec.command;
+	let params = spec.params || [];
+	let shellCmd = null;
+
+	if (cmd == DEFAULT_CLIENT_FILE && length(params) == 1 && params[0] == '--version')
+		shellCmd = "'/usr/bin/frps' '--version'";
+	else if (cmd == '/etc/init.d/frps-advanced' && length(params) == 1 && params[0] == 'preview_config')
+		shellCmd = "'/etc/init.d/frps-advanced' 'preview_config'";
+	else if (cmd == '/etc/init.d/frps-advanced' && length(params) == 1 && params[0] == 'restart')
+		shellCmd = "'/etc/init.d/frps-advanced' 'restart'";
+	else
+		return null;
+
+	let pid = readlink('/proc/self') || '0';
+	let errFile = '/tmp/.frps-advanced-rpc-' + pid + '-' + time() + '.err';
+	let proc = popen(shellCmd + ' 2>' + errFile, 'r');
+
+	if (!proc) {
+		unlink(errFile);
+		return null;
+	}
+
+	let stdout = '';
+	let code = -1;
+	try {
+		stdout = proc.read('all') || '';
+		code = proc.close();
+	}
+	catch (e) {
+		try { proc.close(); } catch (ignored) {}
+		unlink(errFile);
+		return null;
+	}
+
+	let stderr = readfile(errFile) || '';
+	unlink(errFile);
+
+	return {
+		code: code,
+		stdout: stdout,
+		stderr: stderr
+	};
+}
+
 function read_service_state() {
 	let response = null;
 
 	try {
-		response = ubus.call(
-			'service',
-			'list',
-			{ name: 'frps-advanced' }
-		);
+		let proc = popen('/bin/ubus call service list \'{"name":"frps-advanced"}\' 2>/dev/null', 'r');
+		if (!proc)
+			return 'unknown';
+		let raw = proc.read('all') || '';
+		let rc = proc.close();
+		if (rc != 0 || raw == '')
+			return 'unknown';
+		response = json(raw);
 	}
 	catch (e) {
 		return 'unknown';
@@ -784,319 +833,343 @@ function read_runtime_config() {
 	}
 }
 
-return {
-	'luci.frps-advanced': {
-validate_backup: {
-args: { config: '' },
-call: function(request) {
-let stage = 'start';
-try {
-let raw = request && request.args ? request.args.config : null;
-let validation = parse_and_validate_backup(raw);
-if (!validation.ok)
-return validation;
+const methods = {
+	validate_backup: {
+		args: { config: '' },
+		call: function(request) {
+			let stage = 'start';
+			try {
+				let raw = request && request.args ? request.args.config : null;
+				let validation = parse_and_validate_backup(raw);
+				if (!validation.ok)
+					return validation;
 
-stage = 'read-current';
-let c = cursor();
-let current = c.get_all(UCI_CONFIG);
-if (!current || type(current) != 'object')
-return { ok: false, code: 'UCI_READ_FAILED', stage: stage, message: 'unable to read current configuration' };
+				stage = 'read-current';
+				let c = cursor();
+				let current = c.get_all(UCI_CONFIG);
+				if (!current || type(current) != 'object')
+					return { ok: false, code: 'UCI_READ_FAILED', stage: stage, message: 'unable to read current configuration' };
 
-stage = 'compare';
-current = normalize_backup_compare_sections(current);
-let wanted = normalize_backup_compare_sections(validation.sections);
+				stage = 'compare';
+				current = normalize_backup_compare_sections(current);
+				let wanted = normalize_backup_compare_sections(validation.sections);
 
-let diff = compare_sections(current, wanted);
+				let diff = compare_sections(current, wanted);
 
-return {
-ok: true, code: 'OK', stage: 'complete', message: 'backup validation passed',
-section_count: validation.section_count,
-option_count: validation.option_count,
-diff: diff
-};
-} catch (e) {
-return { ok: false, code: 'INTERNAL_ERROR', stage: stage, message: '' + e };
-}
-}
-},
-		restore_config: {
-			args: { config: '' },
-			call: function(request) {
-				let stage = 'start';
+				return {
+					ok: true, code: 'OK', stage: 'complete', message: 'backup validation passed',
+					section_count: validation.section_count,
+					option_count: validation.option_count,
+					diff: diff
+				};
+			} catch (e) {
+				return { ok: false, code: 'INTERNAL_ERROR', stage: stage, message: '' + e };
+			}
+		}
+	},
 
-				try {
-					stage = 'read-service-state';
-					let serviceState = read_service_state();
+	restore_config: {
+		args: { config: '' },
+		call: function(request) {
+			let stage = 'start';
 
-					stage = 'read-argument';
-let raw = request && request.args ? request.args.config : null;
-let validation = parse_and_validate_backup(raw);
-if (!validation.ok)
-return validation;
-let sections = validation.sections;
-					stage = 'apply';
+			try {
+				stage = 'read-service-state';
+				let serviceState = read_service_state();
 
-					let applied = apply_sections(UCI_CONFIG, sections);
+				stage = 'read-argument';
+				let raw = request && request.args ? request.args.config : null;
+				let validation = parse_and_validate_backup(raw);
+				if (!validation.ok)
+					return validation;
+				let sections = validation.sections;
 
-					if (!applied.ok)
-						return applied;
+				stage = 'apply';
+				let applied = apply_sections(UCI_CONFIG, sections);
 
-					let success = {
+				if (!applied.ok)
+					return applied;
+
+				let success = {
+					ok: true,
+					code: 'OK',
+					stage: 'complete',
+					message: '',
+					restored_sections: validation.section_count,
+					restored_options: validation.option_count,
+					config_restored: true,
+					service_state: serviceState,
+					runtime_synchronized: false
+				};
+
+				if (serviceState == 'stopped') {
+					success.message = 'Configuration restored successfully, FRPS is currently not running.';
+					return success;
+				}
+
+				if (serviceState == 'unknown') {
+					success.message = 'Configuration restored successfully, FRPS running state is unknown.';
+					return success;
+				}
+
+				stage = 'restart-service';
+				let response = exec_command({
+					command: '/etc/init.d/frps-advanced',
+					params: [ 'restart' ]
+				});
+
+				let responseOk = response &&
+					type(response) == 'object' && response.code == 0;
+				let currentServiceState = read_service_state();
+
+				if (responseOk && currentServiceState == 'running') {
+					success.message = 'Configuration restored successfully, FRPS has been reloaded.';
+					success.service_state = 'running';
+					success.runtime_synchronized = true;
+					return success;
+				}
+
+				let stderr = response && type(response) == 'object'
+					? (response.stderr || '')
+					: '';
+
+				if (length(stderr) > 4096)
+					stderr = substr(stderr, length(stderr) - 4096);
+
+				if (stderr == '') {
+					if (currentServiceState == 'unknown')
+						stderr = 'unable to read FRPS service state after restart';
+					else if (currentServiceState == 'stopped')
+						stderr = 'FRPS is not running after restart';
+					else
+						stderr = 'FRPS restart command failed';
+				}
+
+				return {
+					ok: false,
+					code: 'SERVICE_RESTART_FAILED',
+					stage: 'restart-service',
+					message: stderr,
+					config_restored: true,
+					service_state: currentServiceState,
+					runtime_synchronized: false
+				};
+			}
+			catch (e) {
+				return {
+					ok: false,
+					code: 'INTERNAL_ERROR',
+					stage: stage,
+					message: '' + e
+				};
+			}
+		}
+	},
+
+	get_config_compare: {
+		call: function(request) {
+			let runtime = read_runtime_config();
+			let serviceRunning = service_is_running();
+
+			let response = exec_command({
+				command: '/etc/init.d/frps-advanced',
+				params: [ 'preview_config' ]
+			});
+
+			let candidate = {
+				ok: false,
+				exists: false,
+				content: '',
+				code: 'GENERATION_FAILED',
+				message: 'unable to generate candidate configuration'
+			};
+
+			if (response && type(response) == 'object') {
+				let stdout = response.stdout || '';
+				let stderr = response.stderr || '';
+
+				if (length(stderr) > 4096)
+					stderr = substr(stderr, length(stderr) - 4096);
+
+				if (response.code == 0 && stdout != '' &&
+				    length(stdout) <= MAX_CONFIG_SIZE) {
+					candidate = {
 						ok: true,
+						exists: true,
+						generated: true,
+						content: stdout,
 						code: 'OK',
-						stage: 'complete',
-						message: '',
-						restored_sections: validation.section_count,
-						restored_options: validation.option_count,
-						config_restored: true,
-						service_state: serviceState,
-						runtime_synchronized: false
+						message: ''
 					};
-
-					if (serviceState == 'stopped') {
-						success.message = 'Configuration restored successfully, FRPS is currently not running.';
-						return success;
-					}
-
-					if (serviceState == 'unknown') {
-						success.message = 'Configuration restored successfully, FRPS running state is unknown.';
-						return success;
-					}
-
-					stage = 'restart-service';
-
-					return ubus.defer(
-						'file',
-						'exec',
-						{
-							command: '/etc/init.d/frps-advanced',
-							params: [ 'restart' ],
-							env: {}
-						},
-						function(code, response) {
-							let responseOk = code == 0 && response &&
-								type(response) == 'object' && response.code == 0;
-							let currentServiceState = read_service_state();
-
-							if (responseOk && currentServiceState == 'running') {
-								success.message = 'Configuration restored successfully, FRPS has been reloaded.';
-								success.service_state = 'running';
-								success.runtime_synchronized = true;
-								request.reply(success);
-								return;
-							}
-
-							let stderr = response && type(response) == 'object'
-								? (response.stderr || '')
-								: '';
-
-							if (length(stderr) > 4096)
-								stderr = substr(stderr, length(stderr) - 4096);
-
-							if (stderr == '') {
-								if (currentServiceState == 'unknown')
-									stderr = 'unable to read FRPS service state after restart';
-								else if (currentServiceState == 'stopped')
-									stderr = 'FRPS is not running after restart';
-								else
-									stderr = 'FRPS restart command failed';
-							}
-
-							request.reply({
-								ok: false,
-								code: 'SERVICE_RESTART_FAILED',
-								stage: 'restart-service',
-								message: stderr,
-								config_restored: true,
-								service_state: currentServiceState,
-								runtime_synchronized: false
-							});
-						}
-					);
 				}
-				catch (e) {
-					return {
-						ok: false,
-						code: 'INTERNAL_ERROR',
-						stage: stage,
-						message: '' + e
-					};
+				else if (response.code == 0 && stdout == '') {
+					candidate.code = 'EMPTY';
+					candidate.message = 'candidate configuration is empty';
+				}
+				else if (length(stdout) > MAX_CONFIG_SIZE) {
+					candidate.code = 'FILE_TOO_LARGE';
+					candidate.message = 'candidate configuration exceeds 512 KiB';
+				}
+				else {
+					if (stdout != '') {
+						candidate.exists = true;
+						candidate.content = stdout;
+					}
+					candidate.code = 'GENERATION_FAILED';
+					candidate.message = stderr != ''
+						? stderr
+						: 'candidate configuration generation failed';
 				}
 			}
-		},
 
-		get_config_compare: {
-			call: function(request) {
-				let runtime = read_runtime_config();
-				let serviceRunning = service_is_running();
+			let equal = null;
 
-				return ubus.defer(
-					'file',
-					'exec',
-					{
-						command: '/etc/init.d/frps-advanced',
-						params: [ 'preview_config' ],
-						env: {}
-					},
-					function(code, response) {
-						let candidate = {
-							ok: false,
-							exists: false,
-							content: '',
-							code: 'GENERATION_FAILED',
-							message: 'unable to generate candidate configuration'
-						};
+			if (candidate.ok && candidate.exists && runtime.exists) {
+				equal = normalize_config_for_compare(candidate.content) ==
+					normalize_config_for_compare(runtime.content);
+			}
 
-						if (code == 0 && response && type(response) == 'object') {
-							let stdout = response.stdout || '';
-							let stderr = response.stderr || '';
+			return {
+				ok: true,
+				service_running: serviceRunning,
+				candidate: candidate,
+				runtime: {
+					exists: runtime.exists,
+					content: runtime.content,
+					path: CONFIG_FILE,
+					code: runtime.code,
+					message: runtime.message
+				},
+				equal: equal,
+				comparison: {
+					normalization: 'line-endings,final-newline'
+				}
+			};
+		}
+	},
 
-							if (length(stderr) > 4096)
-								stderr = substr(stderr, length(stderr) - 4096);
+	get_version: {
+		call: function(request) {
+			let path = null;
 
-							if (response.code == 0 && stdout != '' &&
-							    length(stdout) <= MAX_CONFIG_SIZE) {
-								candidate = {
-									ok: true,
-									exists: true,
-									generated: true,
-									content: stdout,
-									code: 'OK',
-									message: ''
-								};
-							}
-							else if (response.code == 0 && stdout == '') {
-								candidate.code = 'EMPTY';
-								candidate.message = 'candidate configuration is empty';
-							}
-							else if (length(stdout) > MAX_CONFIG_SIZE) {
-								candidate.code = 'FILE_TOO_LARGE';
-								candidate.message = 'candidate configuration exceeds 512 KiB';
-							}
-							else {
-								if (stdout != '') {
-									candidate.exists = true;
-									candidate.content = stdout;
-								}
-								candidate.code = 'GENERATION_FAILED';
-								candidate.message = stderr != ''
-									? stderr
-									: 'candidate configuration generation failed';
-							}
-						}
-
-						let equal = null;
-
-						if (candidate.ok && candidate.exists && runtime.exists) {
-							equal = normalize_config_for_compare(candidate.content) ==
-								normalize_config_for_compare(runtime.content);
-						}
-
-						request.reply({
-							ok: true,
-							service_running: serviceRunning,
-							candidate: candidate,
-							runtime: {
-								exists: runtime.exists,
-								content: runtime.content,
-								path: CONFIG_FILE,
-								code: runtime.code,
-								message: runtime.message
-							},
-							equal: equal,
-							comparison: {
-								normalization: 'line-endings,final-newline'
-							}
-						});
-					}
+			try {
+				let c = cursor();
+				path = c.get(
+					UCI_CONFIG,
+					'main',
+					'client_file'
 				);
 			}
-		},
+			catch (e) {}
 
-		get_version: {
-			call: function(request) {
-				let path = null;
+			if (path == null || (type(path) == 'string' && path == ''))
+				path = DEFAULT_CLIENT_FILE;
 
-				try {
-					let c = cursor();
-					path = c.get(
-						UCI_CONFIG,
-						'main',
-						'client_file'
-					);
-				}
-				catch (e) {}
-
-				if (path == null || (type(path) == 'string' && path == ''))
-					path = DEFAULT_CLIENT_FILE;
-
-				if (type(path) != 'string' || path != DEFAULT_CLIENT_FILE) {
-					return {
-						status: 'error',
-						code: 'unsupported_path'
-					};
-				}
-
-				let fileStat = stat(DEFAULT_CLIENT_FILE);
-
-				if (!fileStat || (fileStat.mode & 73) == 0) {
-					return {
-						status: 'error',
-						code: 'not_executable'
-					};
-				}
-
-				return ubus.defer(
-					'file',
-					'exec',
-					{
-						command: DEFAULT_CLIENT_FILE,
-						params: [ '--version' ],
-						env: {}
-					},
-					function(code, response) {
-						if (code != 0 ||
-						    !response ||
-						    type(response) != 'object' ||
-						    response.code != 0) {
-							request.reply({
-								status: 'error',
-								code: 'exec_failed'
-							});
-							return;
-						}
-
-						let output = substr(
-							response.stdout || '',
-							0,
-							128
-						);
-
-						let versionMatch = match(
-							output,
-							/v?[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?/
-						);
-
-						if (!versionMatch || !versionMatch[0]) {
-							request.reply({
-								status: 'error',
-								code: 'unparseable'
-							});
-							return;
-						}
-
-						let version = versionMatch[0];
-
-						if (match(version, /^v/))
-							version = substr(version, 1);
-
-						request.reply({
-							status: 'ok',
-							version: version
-						});
-					}
-				);
+			if (type(path) != 'string' || path != DEFAULT_CLIENT_FILE) {
+				return {
+					status: 'error',
+					code: 'unsupported_path'
+				};
 			}
+
+			let fileStat = stat(DEFAULT_CLIENT_FILE);
+
+			if (!fileStat || (fileStat.mode & 73) == 0) {
+				return {
+					status: 'error',
+					code: 'not_executable'
+				};
+			}
+
+			let response = exec_command({
+				command: DEFAULT_CLIENT_FILE,
+				params: [ '--version' ]
+			});
+
+			if (!response ||
+			    type(response) != 'object' ||
+			    response.code != 0) {
+				return {
+					status: 'error',
+					code: 'exec_failed'
+				};
+			}
+
+			let output = substr(
+				response.stdout || '',
+				0,
+				128
+			);
+
+			let versionMatch = match(
+				output,
+				/v?[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?/
+			);
+
+			if (!versionMatch || !versionMatch[0]) {
+				return {
+					status: 'error',
+					code: 'unparseable'
+				};
+			}
+
+			let version = versionMatch[0];
+
+			if (match(version, /^v/))
+				version = substr(version, 1);
+
+			return {
+				status: 'ok',
+				version: version
+			};
 		}
 	}
 };
+
+let action = ARGV[0];
+
+if (action == 'list') {
+	let schema = {};
+	for (let name in methods) {
+		let spec = methods[name];
+		schema[name] = spec.args || {};
+	}
+	printf('%J\n', schema);
+	exit(0);
+}
+
+if (action == 'call') {
+	let method = ARGV[1];
+	let spec = method ? methods[method] : null;
+	if (!spec) {
+		printf('%J\n', { ok: false, code: 'METHOD_NOT_FOUND', message: 'unknown method' });
+		exit(1);
+	}
+
+	let rawInput = '';
+	try {
+		rawInput = stdin.read('all') || '';
+	}
+	catch (e) {
+		rawInput = '';
+	}
+
+	let args = {};
+	if (length(rawInput) > 0) {
+		try {
+			let parsed = json(rawInput);
+			if (parsed && type(parsed) == 'object')
+				args = parsed;
+		}
+		catch (e) {
+			args = {};
+		}
+	}
+
+	let result = spec.call({ args: args });
+	if (result != null)
+		printf('%J\n', result);
+	exit(0);
+}
+
+exit(1);
