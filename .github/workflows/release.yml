@@ -1,9 +1,15 @@
 name: Release
 
-run-name: Release FRPS from ${{ github.ref_name }}
+run-name: Release FRPS from ${{ github.ref_name }}${{ inputs.dry_run && ' (dry-run)' || '' }}
 
 on:
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Build and verify IPK/APK artifacts without publishing a GitHub Release'
+        type: boolean
+        default: false
+        required: false
 
 permissions:
   contents: read
@@ -21,14 +27,19 @@ jobs:
       full_version: ${{ steps.meta.outputs.full_version }}
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+
+      - name: Run shared validation checks
+        shell: bash
+        run: bash tests/validate.sh
 
       - name: Validate FRPS release target
         id: meta
         env:
           GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -44,14 +55,32 @@ jobs:
           TAG="v${PKG_VERSION}"
           FULL_VERSION="${PKG_VERSION}-r${PKG_RELEASE}"
 
-          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists." >&2
-            exit 1
-          fi
+          if [ "$DRY_RUN" != "true" ]; then
+            set +e
+            git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null
+            tag_rc=$?
+            set -e
 
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "Release $TAG already exists." >&2
-            exit 1
+            if [ "$tag_rc" -eq 0 ]; then
+              echo "Tag $TAG already exists." >&2
+              exit 1
+            elif [ "$tag_rc" -ne 2 ]; then
+              echo "Failed to query remote tag $TAG (git ls-remote exit code: $tag_rc)." >&2
+              exit 1
+            fi
+
+            set +e
+            rel_out="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}" 2>&1)"
+            rel_rc=$?
+            set -e
+
+            if [ "$rel_rc" -eq 0 ]; then
+              echo "Release $TAG already exists." >&2
+              exit 1
+            elif ! printf '%s\n' "$rel_out" | grep -q 'HTTP 404'; then
+              echo "Failed to query release $TAG: $rel_out" >&2
+              exit 1
+            fi
           fi
 
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
@@ -78,7 +107,13 @@ jobs:
 
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Cache verified SDK archive
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: /tmp/sdk-download/${{ matrix.sdk_file }}
+          key: immortalwrt-sdk-${{ matrix.format }}-${{ matrix.sdk_version }}-${{ matrix.sdk_sha256 }}
 
       - name: Download and verify SDK
         env:
@@ -90,20 +125,26 @@ jobs:
           set -euo pipefail
 
           mkdir -p /tmp/sdk-download /tmp/sdk
+          ARCHIVE="/tmp/sdk-download/$SDK_FILE"
 
-          curl \
-            --fail \
-            --location \
-            --retry 3 \
-            --retry-all-errors \
-            --retry-delay 15 \
-            --connect-timeout 20 \
-            --max-time 1200 \
-            --output "/tmp/sdk-download/$SDK_FILE" \
-            "$SDK_URL"
+          if [ -f "$ARCHIVE" ] && echo "$SDK_SHA256  $ARCHIVE" | sha256sum -c -; then
+            echo "Using verified cached SDK archive: $SDK_FILE"
+          else
+            rm -f "$ARCHIVE"
+            curl \
+              --fail \
+              --location \
+              --retry 3 \
+              --retry-all-errors \
+              --retry-delay 15 \
+              --connect-timeout 20 \
+              --max-time 1200 \
+              --output "$ARCHIVE" \
+              "$SDK_URL"
+            echo "$SDK_SHA256  $ARCHIVE" | sha256sum -c -
+          fi
 
-          echo "$SDK_SHA256  /tmp/sdk-download/$SDK_FILE" | sha256sum -c -
-          tar -xf "/tmp/sdk-download/$SDK_FILE" -C /tmp/sdk --strip-components=1
+          tar -xf "$ARCHIVE" -C /tmp/sdk --strip-components=1
           grep -q '${{ matrix.sdk_version }}' /tmp/sdk/include/version.mk
 
       - name: Build FRPS ${{ matrix.format }} packages
@@ -120,7 +161,7 @@ jobs:
           cd "$SDK"
 
           if [ ! -f feeds/luci/luci.mk ]; then
-            timeout 10m ./scripts/feeds update -a
+            timeout 10m ./scripts/feeds update base packages luci
             timeout 10m ./scripts/feeds install -a
           fi
 
@@ -164,7 +205,7 @@ jobs:
           ls -lh "$GITHUB_WORKSPACE/dist"
 
       - name: Upload FRPS ${{ matrix.format }} artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: frps-release-${{ matrix.format }}
           path: dist/*
@@ -183,12 +224,12 @@ jobs:
 
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
       - name: Download FRPS package artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: frps-release-*
           path: dist
@@ -218,7 +259,8 @@ jobs:
             sha256sum -c SHA256SUMS
           )
 
-      - name: Publish FRPS GitHub Release
+      - name: Publish FRPS GitHub Release (atomic draft -> publish)
+        if: ${{ !inputs.dry_run }}
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.preflight.outputs.tag }}
@@ -230,6 +272,9 @@ jobs:
             dist/*.ipk \
             dist/*.apk \
             dist/SHA256SUMS \
+            --draft \
             --target "$GITHUB_SHA" \
             --title "luci-app-frps $TAG" \
             --generate-notes
+
+          gh release edit "$TAG" --draft=false
